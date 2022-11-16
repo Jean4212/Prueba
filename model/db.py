@@ -2,7 +2,7 @@ from sqlite3 import connect
 
 def __conexion(query: str):
     try:
-        path = "../fastAPI/db.db"
+        path = "./db.db"
         con = connect(path)   
         cur = con.cursor()
         cur.execute(query)
@@ -18,7 +18,7 @@ def insert(query: str):
       
 def select(query: str):
     try:
-        path = "../fastAPI/db.db"
+        path = "./db.db"
         con = connect(path)   
         cur = con.cursor()       
         data = cur.execute(query).fetchall()       

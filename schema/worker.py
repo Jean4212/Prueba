@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
-class Worker(BaseModel):
-    dni: str
-    nombre: str
+class User(BaseModel):
+    user: str
+    password: str

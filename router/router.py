@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from model.db import select
+from schema.worker import User
 
 
 router = APIRouter()
@@ -23,8 +24,13 @@ async def index(request: Request):
 
 
 
-#@router.post("/worker")
+#@router.post("/user")
 #def create_worker(worker: Worker):
 #    query = f"""INSERT INTO WORKERS (DNI, NAME) VALUES ("{worker.dni}", "{worker.nombre}")"""
 #    result = insert(query)
 #    return result
+
+@router.post("/user", response_class=HTMLResponse)
+def create_worker(user: User):
+    print(user)
+    return {"hola": "jeancarlos"}

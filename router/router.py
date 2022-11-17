@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from model.db import select
@@ -23,6 +23,10 @@ async def index(request: Request):
 
     return templates.TemplateResponse("index.html", {"request": request, "message": data})  
    
+
+
+
+
 
 
 

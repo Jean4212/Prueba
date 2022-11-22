@@ -1,12 +1,12 @@
 function myfunctionName(){
 
-    const user = document.getElementById("typeEmailX-2").value;
-    const password = document.getElementById("typePasswordX-2").value;
+    const user = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
     let datos = {"user": user, "password": password};
     let datosJSON = JSON.stringify(datos);
 
-    fetch('/user', {
+    fetch('/login', {
           method: "POST",         
           headers: {"Content-Type": "application/json"},
           body: datosJSON

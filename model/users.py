@@ -26,7 +26,7 @@ def Connection(query: str, select: bool):
     engine.close()
     return None
 
-def Select(user: str):
+def Select(user: str) -> list:
     query = f""" SELECT * FROM users WHERE user = "{user}" """
     result = Connection(query, True)    
     if not result:

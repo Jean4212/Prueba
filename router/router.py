@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Request, Form
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
-from schema.worker import User
+
 
 
 router = APIRouter()
@@ -10,18 +10,23 @@ templates = Jinja2Templates(directory="./templates")
 
 
 
-@router.get("/", response_class=HTMLResponse, status_code=200)
-async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "message": "hellow"})  
+@router.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request}) 
+
+@router.post("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return "hola" #templates.TemplateResponse("index.html", {"request": request})  
+
+
+
+
    
-
-
-
-
-@router.post("/user")
-def user(user: User):
-    if user.user == "Jean" and user.password == "1234":
-        return {"message": "Exito"}
-
-    return {"message": "Fail"}
-
+@router.post("/login", response_class=HTMLResponse)
+async def uuuuu(request: Request, username: str = Form(...), password: str = Form(...)):
+    
+    if username == "jean" and password == "1234":
+        print("hola")
+        return templates.TemplateResponse("user.html", {"request": request})  
+    
+    return RedirectResponse("/")  

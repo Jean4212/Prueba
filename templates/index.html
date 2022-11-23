@@ -17,17 +17,27 @@
 
 <body>
 
-  <form  method="POST" action="/login">
-    <h3>Login Here</h3>
+  <div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Login</h1>
+			</div>
 
-    <label for="username">Username</label>
-    <input type="text" placeholder="Username" id="username" name="username" required>
+			<div class="login-form">
+				<div class="control-group">
+				<input type="text" class="login-field" value="" placeholder="username" id="username">
+				<label class="login-field-icon fui-user" for="login-name"></label>
+				</div>
 
-    <label for="password">Password</label>
-    <input type="password" placeholder="Password" id="password" name="password" required>
+				<div class="control-group">
+				<input type="password" class="login-field" value="" placeholder="password" id="password">
+				<label class="login-field-icon fui-lock" for="login-pass"></label>
+				</div>
 
-    <button>Log In</button>    
-</form>
+				<a onclick="mifun()" class="btn btn-primary btn-large btn-block">login</a>				
+			</div>
+		</div>
+	</div>
 
   <script type="text/javascript" src="{{ url_for('static', path='/js//index.js') }}"></script>  
 

@@ -15,7 +15,8 @@ def users():
     return {"users": result}
 
 @route_users.post("/users")
-def users(user: User):    
+def users(user: User):
+
     query = Select(Users).where(Users.username == user.username) 
     result = session.scalars(query).all()
    

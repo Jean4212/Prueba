@@ -33,9 +33,8 @@ class Persons(Base):
     create_at: Mapped[str] = mapped_column(String(30))
 
     def __repr__(self) -> str:
-        
-        return f""" Persons(id={self.id!r}, dni={self.dni!r}, paterno={self.paterno!r}, materno={self.materno!r}, 
-                    nombre={self.nombre!r}, nacimiento={self.nacimiento!r}, create_at={self.create_at!r})"""
+                
+        return f"""Persons(id={self.id!r}, dni={self.dni!r}, paterno={self.paterno!r}, materno={self.materno!r}, nombre={self.nombre!r}, nacimiento={self.nacimiento!r}, create_at={self.create_at!r})"""
 
 Base.metadata.create_all(engine)
 session = Session(engine)

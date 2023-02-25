@@ -12,10 +12,11 @@ def persons():
     query = Select(Persons)
     result = session.scalars(query).all()
     
-    return {"persons": result}
+    return result
 
 @route_persons.post("/persons")
 def persons(person: Person):    
+    
     query = Select(Persons).where(Persons.dni == person.dni) 
     result = session.scalars(query).all()
    
@@ -55,3 +56,17 @@ def persons(person: Person, dni: str):
 
     return {"message": "No existe"}
  
+@route_persons.delete("/persons")
+def persons(dni: str):
+
+    query = Select(Persons).where(Persons.dni == dni) 
+    result = session.scalars(query).all()
+
+    if result:
+        select_person = result[0]
+        session.delete(select_person)
+        session.commit()
+
+        return {"message": "eliminado correctamente"}
+    
+    return {"message": "person no existe"}

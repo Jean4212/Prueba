@@ -1,12 +1,17 @@
 
-from fastapi import FastAPI
 from uvicorn import run
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from routers.users import route_users
 from routers.persons import route_persons
+from routers.index import route_index
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+app.include_router(route_index)
 app.include_router(route_users)
 app.include_router(route_persons)
 

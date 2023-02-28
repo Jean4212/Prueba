@@ -7,12 +7,16 @@ from sqlalchemy import Select
 route_persons = APIRouter()
 
 @route_persons.get("/persons")
-def persons():   
+def persons(dni: str):   
 
-    query = Select(Persons)
+    query = Select(Persons).where(Persons.dni == dni)
     result = session.scalars(query).all()
+
+    if result:
     
-    return result
+        return result[0]
+    
+    return {"message": "no existe"}
 
 @route_persons.post("/persons")
 def persons(person: Person):    

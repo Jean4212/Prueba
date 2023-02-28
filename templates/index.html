@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-xl">
+  <div class="row">
+
+    <!-- datos personales -->
+    <div class="col-lg-2 col-md-4 col-sm-4">Numero de Dni
+      <input type="text" class="form-control" id="dni" maxlength="8">       
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Apellido Paterno
+      <input type="text" class="form-control" id="paterno" maxlength="20">    
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Apellido Materno
+      <input type="text" class="form-control" id="materno"  maxlength="20">     
+    </div>
+
+    <div class="col-lg-4 col-md-8 col-sm-8">Nombre
+      <input type="text" class="form-control" id="nombre"  maxlength="30">     
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Fecha de Nacimiento
+      <input type="date" class="form-control" id="nacimiento" max="2050-12-31" min="1950-01-01">       
+    </div>  
+    
+    <!-- datos laborales -->
+    <div class="col-lg-2 col-md-4 col-sm-4">Fecha de Ingreso
+      <input type="date" class="form-control" id="nacimiento" max="2050-12-31" min="1950-01-01">       
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Sueldo Planilla
+      <input type="text" class="form-control" id="paterno" maxlength="20">    
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Bono Movilidad
+      <input type="text" class="form-control" id="materno"  maxlength="20">     
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Asignacion Familiar    
+      <select class="form-select">
+        <option value="no">No</option>      
+        <option value="si">Si</option>              
+      </select>
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Entidad de Aportacion
+      <select class="form-select">   
+        <option value="no">Sin Regimen</option>  
+        <option value="habitat">Habitat</option>
+        <option value="integra">Integra</option>
+        <option value="prima">Prima</option>
+        <option value="profuturo">Profuturo</option>
+        <option value="onp">Onp</option>      
+      </select>
+    </div>  
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Tipo de Comision
+      <select class="form-select">   
+        <option value="no">Sin Comision</option>
+        <option value="flujo">Flujo</option>  
+        <option value="mixta">Mixta</option>        
+      </select>
+    </div>  
+
+
+
+
+
+
+
+    <div class="col-md-6 col-sm-8">        
+      <input type="file" name="file" class="form-control" accept="image/*">    
+    </div>
+    
+    <div class="col-12">
+      <button class="btn btn-primary" onclick="hola()">Submit form</button>
+    </div>
+
+  </div>
+</div>
+
+{% endblock  %}

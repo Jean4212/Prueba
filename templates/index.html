@@ -7,76 +7,173 @@
 
     <!-- datos personales -->
     <div class="col-lg-2 col-md-4 col-sm-4">Numero de Dni
-      <input type="text" class="form-control" id="dni" maxlength="8">       
+      <input type="text" class="form-control" id="dni" maxlength="8" onkeypress="ValidaNumeros(event)">
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Apellido Paterno
-      <input type="text" class="form-control" id="paterno" maxlength="20">    
+      <input type="text" class="form-control" id="paterno" maxlength="15" onkeypress="ValidaLetras(event)">
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Apellido Materno
-      <input type="text" class="form-control" id="materno"  maxlength="20">     
+      <input type="text" class="form-control" id="materno"  maxlength="15" onkeypress="ValidaLetras(event)">
     </div>
 
     <div class="col-lg-4 col-md-8 col-sm-8">Nombre
-      <input type="text" class="form-control" id="nombre"  maxlength="30">     
+      <input type="text" class="form-control" id="nombre"  maxlength="25" onkeypress="ValidaLetras(event)">
     </div>
 
-    <div class="col-lg-2 col-md-4 col-sm-4">Fecha de Nacimiento
-      <input type="date" class="form-control" id="nacimiento" max="2050-12-31" min="1950-01-01">       
-    </div>  
+    <div class="col-lg-2 col-md-4 col-sm-4">Fecha Nacimiento
+      <input type="date" class="form-control" id="nacimiento" max="2050-12-31" min="1950-01-01">
+    </div>
     
+
+    <div class="col-sm-12">
+      <div class="form-check form-switch" style="margin-top: 30px; margin-bottom: 10px;">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Datos de Planilla</label>
+      </div>
+    </div>
+
+
     <!-- datos laborales -->
-    <div class="col-lg-2 col-md-4 col-sm-4">Fecha de Ingreso
-      <input type="date" class="form-control" id="nacimiento" max="2050-12-31" min="1950-01-01">       
+    <div class="col-lg-2 col-md-4 col-sm-4">Fecha Ingreso
+      <input type="date" class="form-control" id="ingreso" max="2050-12-31" min="1950-01-01">
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Sueldo Planilla
-      <input type="text" class="form-control" id="paterno" maxlength="20">    
+      <input type="text" class="form-control" id="planilla" maxlength="8">
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Bono Movilidad
-      <input type="text" class="form-control" id="materno"  maxlength="20">     
+      <input type="text" class="form-control" id="movilidad"  maxlength="7">
     </div>
 
-    <div class="col-lg-2 col-md-4 col-sm-4">Asignacion Familiar    
-      <select class="form-select">
-        <option value="no">No</option>      
-        <option value="si">Si</option>              
+    <div class="col-lg-2 col-md-4 col-sm-4">Asignacion Familiar
+      <select class="form-select" name="asignacion">
+        <option value="no">No</option>
+        <option value="si">Si</option>
       </select>
     </div>
 
-    <div class="col-lg-2 col-md-4 col-sm-4">Entidad de Aportacion
-      <select class="form-select">   
-        <option value="no">Sin Regimen</option>  
+    <div class="col-lg-2 col-md-4 col-sm-4">Entidad Aportacion
+      <select class="form-select" name="aportacion">
+        <option value="no">Sin Regimen</option>
         <option value="habitat">Habitat</option>
         <option value="integra">Integra</option>
         <option value="prima">Prima</option>
         <option value="profuturo">Profuturo</option>
-        <option value="onp">Onp</option>      
+        <option value="onp">Onp</option>
       </select>
-    </div>  
+    </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Tipo de Comision
-      <select class="form-select">   
+      <select class="form-select" name="comision">
         <option value="no">Sin Comision</option>
-        <option value="flujo">Flujo</option>  
-        <option value="mixta">Mixta</option>        
+        <option value="flujo">Flujo</option>
+        <option value="mixta">Mixta</option>
       </select>
-    </div>  
+    </div>
+
+
+    <div class="col-sm-12">
+      <div class="form-check form-switch" style="margin-top: 30px; margin-bottom: 10px;">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Datos Adicionales</label>
+      </div>
+    </div>
+
 
     <!-- datos adicionales -->
+    <div class="col-lg-3 col-md-4 col-sm-6">Cuenta Bancaria
+      <input type="text" class="form-control" id="cuenta" maxlength="20" onkeypress="ValidaNumeros(event)">
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">Cargo Laboral
+      <input type="text" class="form-control" id="cargo" onkeypress="ValidaLetras(event)">
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">Distrito
+      <select class="form-select" name="distrito">
+        <option value="no">Sin Distrito</option>
+        <option value="a1">Chorrillos</option>
+        <option value="a2a">San Juan de Miraflores</option>
+        <option value="a2b">Villa el Salvador</option>
+        <option value="a3a">Villa Maria del Triunfo</option>
+        <option value="a3b">Comas</option>
+        <option value="a3c">Carabayllo</option>
+      </select>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">Domicilio
+      <input type="text" class="form-control" id="domicilio">
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Area
+      <select class="form-select" name="area">
+        <option value="no">Sin Comision</option>
+        <option value="sur">Sur</option>
+        <option value="norte">Norte</option>
+        <option value="taller">Taller</option>
+        <option value="oficina">Oficina</option>
+      </select>
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Codigo Cuspp
+      <input type="text" class="form-control" id="cuspp" maxlength="12">
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Celular
+      <input type="text" class="form-control" id="celular" maxlength="9" onkeypress="ValidaNumeros(event)">
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Licencia
+      <input type="text" class="form-control" id="licencia" maxlength="9">
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Categoria
+      <select class="form-select" name="categoria">
+        <option value="no">Sin Licencia</option>
+        <option value="a1">A1</option>
+        <option value="a2a">A2A</option>
+        <option value="a2b">A2B</option>
+        <option value="a3a">A3A</option>
+        <option value="a3b">A3B</option>
+        <option value="a3c">A3C</option>
+      </select>
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Revalidacion
+      <input type="date" class="form-control" id="revalidacion">
+    </div>
 
 
+    <div class="col-sm-12">
+      <div class="form-check form-switch" style="margin-top: 30px; margin-bottom: 10px;">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Adjuntar Archivos</label>
+      </div>
+    </div>
 
 
+    <!-- cargar imagenes -->
+    <div class="col-lg-6 col-md-6 col-sm-12">Cargar Foto
+      <input type="file" name="file-foto" class="form-control" accept="image/jpeg">
+    </div>
 
-    <div class="col-md-6 col-sm-8">        
-      <input type="file" name="file" class="form-control" accept="image/*">    
+    <div class="col-lg-6 col-md-6 col-sm-12">Cargar Dni
+      <input type="file" name="file-dni" class="form-control" accept="image/jpeg">
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12">Cargar Licencia
+      <input type="file" name="file-licencia" class="form-control" accept="image/jpeg">
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12">Cargar Policial
+      <input type="file" name="file-policial" class="form-control" accept="image/jpeg">
     </div>
     
-    <div class="col-12">
-      <button class="btn btn-primary" onclick="hola()">Submit form</button>
+    <div class="col-sm-12">
+      <button class="btn btn-primary" onclick="hola()" style="margin-top: 30px;">Grabar Datos</button>
     </div>
 
   </div>

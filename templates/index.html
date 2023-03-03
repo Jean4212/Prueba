@@ -56,7 +56,7 @@
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Entidad Aportacion
-      <select class="form-select" id="aportacion" onchange="AporteChange(event)">
+      <select class="form-select" id="aportacion" onchange="AporteChange()">
         <option></option>
         <option value="habitat">Habitat</option>
         <option value="integra">Integra</option>
@@ -67,7 +67,7 @@
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Tipo de Comision
-      <select class="form-select" id="comision" onchange="ComisionValid(event)">
+      <select class="form-select" id="comision" onchange="ComisionValid()">
         <option></option>
         <option value="flujo">Flujo</option>
         <option value="mixta">Mixta</option>
@@ -156,10 +156,12 @@
     
 
     <div class="col-sm-12">
-      <button class="btn btn-primary" onclick="ValidaDatos(event)" style="margin-top: 30px;">Grabar Datos</button>
+      <button class="btn btn-primary" onclick="ValidaDatos()" style="margin-top: 30px;">Grabar Datos</button>
     </div>
 
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 {% endblock  %}

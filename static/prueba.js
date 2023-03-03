@@ -1,62 +1,4 @@
-function ValidaDatos(event) {   
-
-    //const fileFoto = document.getElementById("file-foto");
-    //const fileDni = document.getElementById("file-dni");
-    //const fileLicencia = document.getElementById("file-licencia");
-    //const filePolicial = document.getElementById("file-policial");
-    
-    //const files = new FormData();
-
-    //if (fileFoto.value){files.append("file-foto", fileFoto.files[0])};
-    //if (fileDni.value){files.append("file-dni", fileDni.files[0])};
-    //if (fileLicencia.value){files.append("file-licencia", fileLicencia.files[0])};
-    //if (filePolicial.value){files.append("file-policial", filePolicial.files[0])};
-
-    let fileFoto = document.getElementById("file-foto");
-    let fileDni = document.getElementById("file-dni");
-    //let fileee2 = document.getElementById("file-dni")
-    var xxx = new FormData();
-    xxx.append("files1", fileFoto.files[0]);
-    xxx.append("files2", fileDni.files[0]);
-
-    
-    //xxx.append("file2", fileee2.files[0]);
-    fetch('/uploadfiles', {
-        method: 'POST',        
-        body: xxx
-    })
-    .then(res => res.json())
-    .then(res => {
-        console.log(res);                   
-    })
-    .catch(err => {
-        console.log(err);
-     });
-
-
-
-    return
-
-    let fileee = document.getElementById("file-foto")
-    //let fileee2 = document.getElementById("file-dni")
-    var xxx = new FormData();
-    xxx.append("file", fileee.files[0]);
-    //xxx.append("file2", fileee2.files[0]);
-    fetch('/uploadfile', {
-        method: 'POST',        
-        body: xxx
-    })
-    .then(res => res.json())
-    .then(res => {
-        console.log(res);                   
-    })
-    .catch(err => {
-        console.log(err);
-     });
-
-
-     return
-
+function ValidaDatos(event) {      
     const dni = document.getElementById("dni");
     const paterno = document.getElementById("paterno");
     const materno = document.getElementById("materno");
@@ -80,7 +22,8 @@ function ValidaDatos(event) {
     if (!check1.checked){       
         const data = {dni: dni.value, paterno: paterno.value, materno: materno.value, nombre: nombre.value, nacimiento: nacimiento.value, ingreso: "", planilla: "", movilidad: "", asignacion: "", aportacion: "", comision: "", cuenta: "", cargo: "", distrito: "", domicilio: "", area: "", cuspp: "", celular: "", licencia: "", categoria: "", revalidacion: ""};
     
-        EnviarDatos(data);        
+        EnviarDatos(data);    
+        return    
     };
  
     const ingreso = document.getElementById("ingreso");
@@ -113,33 +56,48 @@ function ValidaDatos(event) {
 };
 
 function EnviarDatos(data) {
-    
-    /*const NewData = new FormData();    
-
-    for (let key in data) {
-        NewData.append(key, data[key]);
-    };    
-    const input = document.getElementById("file-foto");
-    NewData.append("file-foto", input.files[0]);
-    //console.log(NewData);
-    //return
-    */
-    
-
-
     fetch('/persons', {
         method: 'POST',       
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},    
         body: JSON.stringify(data),    
     })            
     .then((response) => response.json())
-    .then((data) => {
-        
-        console.log(data);
+    .then((data) => {     
+        if (data.success) {
+            EnviarImgs();
+        };        
     })
     .catch((error) => {
         console.log(error);
     });
+};
+
+function EnviarImgs() {
+    const fileFoto = document.getElementById("file-foto");
+    const fileDni = document.getElementById("file-dni");
+    const fileLicencia = document.getElementById("file-licencia");
+    const filePolicial = document.getElementById("file-policial");
+
+    if (fileFoto.value || fileDni.value || fileLicencia.value || filePolicial.value) {
+        const newFormData = new FormData();
+
+        if (fileFoto.value){newFormData.append("files", fileFoto.files[0], "foto.jpg")};
+        if (fileDni.value){newFormData.append("files", fileDni.files[0], "dni.jpg")};
+        if (fileLicencia.value){newFormData.append("files", fileLicencia.files[0], "licencia.jpg")};
+        if (filePolicial.value){newFormData.append("files", filePolicial.files[0], "policial.jpg")};
+
+        fetch('/uploadfiles', {
+            method: 'POST',        
+            body: newFormData
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);                   
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };       
 };
 
 function ComisionValid(event) {

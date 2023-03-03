@@ -29,3 +29,4 @@ def users(user: User):
     session.commit()   
 
     return {"message": "Se registro"}
+

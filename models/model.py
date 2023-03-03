@@ -30,11 +30,27 @@ class Persons(Base):
     materno: Mapped[str] = mapped_column(String(20))
     nombre: Mapped[str] = mapped_column(String(30))
     nacimiento: Mapped[str] = mapped_column(String(10))
+    ingreso: Mapped[str] = mapped_column(String(10))
+    planilla: Mapped[str] = mapped_column(String(8))
+    movilidad: Mapped[str] = mapped_column(String(7))
+    asignacion: Mapped[str] = mapped_column(String(2))
+    aportacion: Mapped[str] = mapped_column(String(9))
+    comision: Mapped[str] = mapped_column(String(5))
+    cuenta: Mapped[str] = mapped_column(String(20))
+    cargo: Mapped[str] = mapped_column(String(30))
+    distrito: Mapped[str] = mapped_column(String(30))
+    domicilio: Mapped[str] = mapped_column(String(50))
+    area: Mapped[str] = mapped_column(String(10))
+    cuspp: Mapped[str] = mapped_column(String(12))
+    celular: Mapped[str] = mapped_column(String(9))
+    licencia: Mapped[str] = mapped_column(String(9))
+    categoria: Mapped[str] = mapped_column(String(3))
+    revalidacion: Mapped[str] = mapped_column(String(10))
     create_at: Mapped[str] = mapped_column(String(30))
 
     def __repr__(self) -> str:
                 
-        return f"""Persons(id={self.id!r}, dni={self.dni!r}, paterno={self.paterno!r}, materno={self.materno!r}, nombre={self.nombre!r}, nacimiento={self.nacimiento!r}, create_at={self.create_at!r})"""
+        return f"""Persons(id={self.id!r}, dni={self.dni!r}, paterno={self.paterno!r}, materno={self.materno!r}, nombre={self.nombre!r}, nacimiento={self.nacimiento!r}, ingreso={self.ingreso!r}, planilla={self.planilla!r}, movilidad={self.movilidad!r}, asignacion={self.asignacion!r}, aportacion={self.aportacion!r}, comision={self.comision!r}, cuenta={self.cuenta!r}, cargo={self.cargo!r}, distrito={self.distrito!r}, domicilio={self.domicilio!r}, area={self.area!r}, cuspp={self.cuspp!r}, celular={self.celular!r}, licencia={self.licencia!r}, categoria={self.categoria!r}, revalidacion={self.revalidacion!r}, create_at={self.create_at!r})"""
 
 Base.metadata.create_all(engine)
 session = Session(engine)

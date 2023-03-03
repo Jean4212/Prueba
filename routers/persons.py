@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request, Body
 from schemas.schema import Person
 from models.model import Persons, session
 from datetime import datetime
@@ -19,16 +19,16 @@ def persons(dni: str):
     return {"message": "no existe"}
 
 @route_persons.post("/persons")
-def persons(person: Person):    
-    
+async def persons(person: Person):
+
     query = Select(Persons).where(Persons.dni == person.dni) 
     result = session.scalars(query).all()
-   
+
     if result:           
         return {"message": "Ya existe"}
     
     new_person = Persons(dni=person.dni, paterno=person.paterno, materno=person.materno, nombre=person.nombre, 
-                         nacimiento=person.nacimiento, create_at=datetime.now())    
+                         nacimiento=person.nacimiento, ingreso=person.ingreso, planilla=person.planilla, movilidad=person.movilidad, asignacion=person.asignacion, aportacion=person.aportacion, comision=person.comision, cuenta=person.cuenta, cargo=person.cargo, distrito=person.distrito, domicilio=person.domicilio, area=person.area, cuspp=person.cuspp, celular=person.celular, licencia=person.licencia, categoria=person.categoria, revalidacion=person.revalidacion, create_at=datetime.now())    
 
     session.add(new_person)
     session.commit()   

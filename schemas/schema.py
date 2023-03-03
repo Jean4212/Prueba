@@ -12,3 +12,19 @@ class Person(BaseModel):
     materno: str
     nombre: str
     nacimiento: str
+    ingreso: str
+    planilla: str
+    movilidad: str
+    asignacion: str
+    aportacion: str
+    comision: str
+    cuenta: str
+    cargo: str
+    distrito: str
+    domicilio: str
+    area: str
+    cuspp: str
+    celular: str
+    licencia: str
+    categoria: str
+    revalidacion: str

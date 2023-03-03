@@ -1,9 +1,61 @@
-function ValidaDatos() {
-    
+function ValidaDatos(event) {   
 
-    let url
+    //const fileFoto = document.getElementById("file-foto");
+    //const fileDni = document.getElementById("file-dni");
+    //const fileLicencia = document.getElementById("file-licencia");
+    //const filePolicial = document.getElementById("file-policial");
+    
+    //const files = new FormData();
+
+    //if (fileFoto.value){files.append("file-foto", fileFoto.files[0])};
+    //if (fileDni.value){files.append("file-dni", fileDni.files[0])};
+    //if (fileLicencia.value){files.append("file-licencia", fileLicencia.files[0])};
+    //if (filePolicial.value){files.append("file-policial", filePolicial.files[0])};
+
+    let fileFoto = document.getElementById("file-foto");
+    let fileDni = document.getElementById("file-dni");
+    //let fileee2 = document.getElementById("file-dni")
+    var xxx = new FormData();
+    xxx.append("files1", fileFoto.files[0]);
+    xxx.append("files2", fileDni.files[0]);
+
+    
+    //xxx.append("file2", fileee2.files[0]);
+    fetch('/uploadfiles', {
+        method: 'POST',        
+        body: xxx
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);                   
+    })
+    .catch(err => {
+        console.log(err);
+     });
+
+
 
     return
+
+    let fileee = document.getElementById("file-foto")
+    //let fileee2 = document.getElementById("file-dni")
+    var xxx = new FormData();
+    xxx.append("file", fileee.files[0]);
+    //xxx.append("file2", fileee2.files[0]);
+    fetch('/uploadfile', {
+        method: 'POST',        
+        body: xxx
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);                   
+    })
+    .catch(err => {
+        console.log(err);
+     });
+
+
+     return
 
     const dni = document.getElementById("dni");
     const paterno = document.getElementById("paterno");
@@ -20,61 +72,92 @@ function ValidaDatos() {
     if (!nombre.value){alert("registre el nombre"); nombre.focus(); return};
     if (nombre.value.length < 3){alert("nombre debe ser mayor a 3 DIGITOS"); nombre.focus(); return};
     if (!nacimiento.value){alert("registre la fecha de nacimiento"); nacimiento.focus(); return};    
-    if (parseInt(nacimiento.value.slice(0,4)) < 1950 || parseInt(nacimiento.value.slice(0,4)) > 2050){alert("fecha fuera de rango"); nacimiento.focus(); return};
+    let fechaNacimiento = parseInt(nacimiento.value.slice(0,4));
+    if (fechaNacimiento < 1950 || fechaNacimiento > 2050){alert("fecha fuera de rango"); nacimiento.focus(); return};
     
-    const data = {dni: dni.value, paterno:paterno.value, materno:materno.value, nombre:nombre.value, nacimiento:nacimiento.value};
-    
-    console.log(data);
+    const check1 = document.getElementById("Checked1");   
 
-    return
+    if (!check1.checked){       
+        const data = {dni: dni.value, paterno: paterno.value, materno: materno.value, nombre: nombre.value, nacimiento: nacimiento.value, ingreso: "", planilla: "", movilidad: "", asignacion: "", aportacion: "", comision: "", cuenta: "", cargo: "", distrito: "", domicilio: "", area: "", cuspp: "", celular: "", licencia: "", categoria: "", revalidacion: ""};
+    
+        EnviarDatos(data);        
+    };
+ 
+    const ingreso = document.getElementById("ingreso");
+    const planilla = document.getElementById("planilla");
+    const movilidad = document.getElementById("movilidad");
+    const asignacion = document.getElementById("asignacion");
+    const aportacion = document.getElementById("aportacion");
+    const comision = document.getElementById("comision");
+
+    if (!ingreso.value){alert("registra la fecha de ingreso"); ingreso.focus(); return};
+    let fechaIngreso = parseInt(ingreso.value.slice(0,4));
+    if (fechaIngreso < 1950 || fechaIngreso > 2050){alert("fecha de ingreso fuera de rango"); ingreso.focus(); return};
+    if (!planilla.value){alert("registre el sueldo en planilla"); planilla.focus(); return};  
+    if (aportacion.value && aportacion.value != "onp" && !comision.value){alert("seleccione la comision"); comision.focus(); return};    
+    
+    const cuenta = document.getElementById("cuenta");
+    const cargo = document.getElementById("cargo");
+    const distrito = document.getElementById("distrito");
+    const domicilio = document.getElementById("domicilio");
+    const area = document.getElementById("area");
+    const cuspp = document.getElementById("cuspp");
+    const celular = document.getElementById("celular");
+    const licencia = document.getElementById("licencia");
+    const categoria = document.getElementById("categoria");
+    const revalidacion = document.getElementById("revalidacion");
+
+    const data = {dni: dni.value, paterno: paterno.value, materno: materno.value, nombre: nombre.value, nacimiento: nacimiento.value, ingreso: ingreso.value, planilla: planilla.value, movilidad: movilidad.value, asignacion: asignacion.value, aportacion: aportacion.value, comision: comision.value, cuenta: cuenta.value, cargo: cargo.value, distrito: distrito.value, domicilio: domicilio.value, area: area.value, cuspp: cuspp.value, celular: celular.value, licencia: licencia.value, categoria: categoria.value, revalidacion: revalidacion.value};
+    
+    EnviarDatos(data);        
+};
+
+function EnviarDatos(data) {
+    
+    /*const NewData = new FormData();    
+
+    for (let key in data) {
+        NewData.append(key, data[key]);
+    };    
+    const input = document.getElementById("file-foto");
+    NewData.append("file-foto", input.files[0]);
+    //console.log(NewData);
+    //return
+    */
+    
+
 
     fetch('/persons', {
         method: 'POST',       
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)       
+        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},    
+        body: JSON.stringify(data),    
     })            
     .then((response) => response.json())
     .then((data) => {
-        console.log(data.message);           
+        
+        console.log(data);
     })
     .catch((error) => {
-        console.error(error);
+        console.log(error);
     });
-
-    
 };
 
-function buscar_datos() {
-   
-    const dni = document.getElementById("change").value;
-
-    if (dni.length == 8){
-        fetch('/persons?dni=' + dni, {
-            method: 'GET',       
-            headers: {'Content-Type': 'application/json'}           
-            })            
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);   
-            document.getElementById("dni").value = data.dni;
-            document.getElementById("paterno").value = data.paterno;
-            document.getElementById("materno").value = data.materno;
-            document.getElementById("nombre").value = data.nombre;
-            document.getElementById("nacimiento").value = data.nacimiento;
-            })
-        .catch((error) => {
-                console.log(error);
-            });
-    }
-    else {
-        document.getElementById("dni").value = "";
-        document.getElementById("paterno").value = "";
-        document.getElementById("materno").value = "";
-        document.getElementById("nombre").value = "";
-        document.getElementById("nacimiento").value = "";
-    }    
+function ComisionValid(event) {
+    const aportacion = document.getElementById("aportacion");
+    const comision = document.getElementById("comision");
+    if (comision.value && (aportacion.value == "onp" || aportacion.value == "")){        
+        comision.value = "";
+        aportacion.focus();
+    };
 };
 
+function AporteChange(event) {
+    const aportacion = document.getElementById("aportacion");
+    const comision = document.getElementById("comision");
+    if (!aportacion.value || aportacion.value == "onp"){        
+        comision.value = ""
+    };
+};
 
 function ValidaNumeros(event) {
     let key = event.keyCode;
@@ -112,24 +195,6 @@ function Checked1(event) {
         document.getElementById("asignacion").disabled = false; 
         document.getElementById("aportacion").disabled = false; 
         document.getElementById("comision").disabled = false; 
-    }else{
-        document.getElementById("ingreso").value = "";
-        document.getElementById("ingreso").disabled = true; 
-        document.getElementById("planilla").value = "";
-        document.getElementById("planilla").disabled = true; 
-        document.getElementById("movilidad").value = "";
-        document.getElementById("movilidad").disabled = true; 
-        document.getElementById("asignacion").value = "";
-        document.getElementById("asignacion").disabled = true; 
-        document.getElementById("aportacion").value = "";
-        document.getElementById("aportacion").disabled = true; 
-        document.getElementById("comision").value = "";
-        document.getElementById("comision").disabled = true; 
-    };   
-};
-
-function Checked2(event) {
-    if (event.srcElement.checked){
         document.getElementById("cuenta").disabled = false;
         document.getElementById("cargo").disabled = false; 
         document.getElementById("distrito").disabled = false; 
@@ -144,7 +209,19 @@ function Checked2(event) {
         document.getElementById("file-dni").disabled = false; 
         document.getElementById("file-licencia").disabled = false; 
         document.getElementById("file-policial").disabled = false; 
-    }else{     
+    }else{
+        document.getElementById("ingreso").value = "";
+        document.getElementById("ingreso").disabled = true; 
+        document.getElementById("planilla").value = "";
+        document.getElementById("planilla").disabled = true; 
+        document.getElementById("movilidad").value = "";
+        document.getElementById("movilidad").disabled = true; 
+        document.getElementById("asignacion").value = "";
+        document.getElementById("asignacion").disabled = true; 
+        document.getElementById("aportacion").value = "";
+        document.getElementById("aportacion").disabled = true; 
+        document.getElementById("comision").value = "";
+        document.getElementById("comision").disabled = true;
         document.getElementById("cuenta").value = "";
         document.getElementById("cuenta").disabled = true;
         document.getElementById("cargo").value = "";

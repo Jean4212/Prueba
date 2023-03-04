@@ -1,4 +1,36 @@
-var myElementToCheckIfClicksAreInsideOf = document.querySelector('.item');
+const myFunction = (e) => {
+    
+    let reviewNode = e.target;
+    
+    while (reviewNode.nodeName !== 'BODY') {
+    
+      if (reviewNode.classList.contains('item')) {
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Apoyo',
+            denyButtonText: `Falta`,
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                Swal.fire('Saved!', '', 'success');
+                e.target.innerText = "X";
+            } else if (result.isDenied) {
+                Swal.fire('Saved!', '', 'success');
+                e.target.innerText = "&check;";
+            }
+        })
+        break;
+      }      
+      reviewNode = reviewNode.parentNode;
+    }      
+  }
+  
+  document.body.addEventListener('click', myFunction, false);
+
+
+/*var myElementToCheckIfClicksAreInsideOf = document.querySelector('.item');
 // Listen for click events on body
 document.body.addEventListener('click', function (event) {
     let id = event.target.id
@@ -38,4 +70,4 @@ document.body.addEventListener('click', function (event) {
         }
     });    
 });
-
+*/

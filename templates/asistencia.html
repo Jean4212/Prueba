@@ -48,7 +48,7 @@ Asistencia G&A
                         <th scope="row">{{loop.index}}</th>
                         <td>{{data.paterno}} {{data.materno}} {{data.nombre}}</td>
                             {% for num in range(31) %}
-                                <td name="celda" class="item" id="i{{data.dni}}d{{loop.index}}" style="cursor: pointer;"></td>
+                                <td class="item" id="i{{data.dni}}d{{loop.index}}" style="cursor: pointer;"></td>
                             {% endfor %}           
                     </tr>
                 {% endfor %}    

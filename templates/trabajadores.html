@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+Trabajadores G&A
+{% endblock %}
+
+{% block navbar %}
+<header class="bg-dark text-center text-white">
+	<div class="container-xxl">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">                
+			<a class="navbar-brand" href="/">Gruas & Asociados</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+				<div class="navbar-nav">					
+					<a class="nav-link active" href="/trabajadores">Trabajadores</a>
+                    <a class="nav-link" href="/asistencia">Asistencia</a>
+                    <a class="nav-link" href="/desarrollo">Desarrollo</a>
+                    <a class="nav-link" href="/planilla">Planilla</a>
+				</div>
+			</div>               
+		</nav>
+	</div>
+</header> 
+{% endblock %}
+
+
+{% block content %}
+<div class="container-xxl">
+
+    <div class="d-flex justify-content-center">
+        <div style="margin-top: 20px; width: 80%;">
+            <div class="input-group rounded">
+                <input id="search" type="search" class="form-control rounded searchbox-input" placeholder="Buscar" 
+                    aria-label="Search" aria-describedby="search-addon" onkeyup="buttonUp();" required/>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row row-cols-xs-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+        {% for data in data %}
+            <div class="col d-flex justify-content-center">
+                <div class="card text-center" style="width: 14rem; margin-top: 20px;">
+                    <img src="/static/11.jpeg" class="card-img-top" alt="..." 
+                        data-bs-toggle="modal" data-bs-target="#i{{data.dni}}" style="cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ data.paterno }} {{ data.materno }}<br>{{ data.nombre }}</h5>
+                        <p class="card-text"> {{ data.cargo }}<br>{{ data.dni }}</p>            
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="modal fade" id="i{{data.dni}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{data.paterno}} {{data.materno}} {{data.nombre}}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Fecha de nacimiento: {{data.nacimiento}}</p>
+                            <p>Fecha de ingreso: {{data.ingreso}}</p>                                                        
+                            <p>Numero de licencia: {{data.licencia}}</p>
+                            <p>Categoria de licencia: {{data.categoria}}</p>
+                            <p>Fecha de revalidacion: {{data.revalidacion}}</p>
+                            <p>Distrito: {{data.distrito}}</p>
+                            <a href="" download="Dni.jpeg">Dni</a>
+                            <a href="" download="Licencia.jpeg">Licencia</a>
+                            <a href="" download="Policial.jpeg">Policial</a>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!--JS-->
+<script src="{{ url_for('static', path='filtrar.js') }}"></script>
+{% endblock %}
+
+

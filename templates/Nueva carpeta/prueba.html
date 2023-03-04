@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+
+
+
+
+{% block content %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          {% for category, message in messages %}
+              {% if category == 'message' %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {% else %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {% endif %}
+
+              <strong>{{ message }}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+          {% endfor %}               
+      {% endif %}
+  {% endwith %}
+
+
+<div class="container-xxl">
+<form class="row g-3 needs-validation" action="" method="post" enctype="multipart/form-data">
+    <div class="col-md-2 col-sm-4">   
+        <input type="text" name="dni" minlength="8" maxlength="8" class="form-control" id="validationCustom01" placeholder="Dni" onkeyup="buttonUp()" required>       
+      </div>
+    <div class="col-md-2 col-sm-4">   
+      <input type="text" name="paterno" class="form-control" id="validationCustom02" placeholder="Apellido paterno" required>    
+    </div>
+    <div class="col-md-2 col-sm-4">     
+      <input type="text" name="materno" class="form-control" id="validationCustom03" placeholder="Apellido materno" required>     
+    </div>
+    <div class="col-md-4 col-sm-8">        
+        <input type="text" name="nombre" class="form-control" id="validationCustom04" placeholder="Nombre" required>     
+      </div>
+      <div class="col-md-2 col-sm-4">        
+        <input type="date" name="nacimiento" min="1900-01-01" max="2050-12-31" class="form-control" id="validationCustom05" placeholder="Fecha de nacimiento">       
+      </div>  
+
+      <div class="col-md-2 col-sm-4">   
+        <input type="date" name="ingreso" min="1900-01-01" max="2050-12-31" class="form-control" id="validationCustom06" placeholder="Fecha de ingreso">       
+      </div>
+    <div class="col-md-2 col-sm-4">   
+      <input type="text" name="licencia" class="form-control" id="validationCustom02" placeholder="N° licencia">     
+    </div>
+    <div class="col-md-2 col-sm-4">     
+      <input type="text" name="categoria" class="form-control" id="validationCustom03" placeholder="Categoria">     
+    </div>
+    <div class="col-md-2 col-sm-4">        
+        <input type="date" name="revalidacion" min="1900-01-01" max="2050-12-31" class="form-control" id="validationCustom04" placeholder="Fecha de revalidacion">       
+      </div>
+      <div class="col-md-4 col-sm-8">        
+        <select class="form-select" name="distrito" id="validationCustom04">
+            <option selected disabled value="">Distrito</option>
+            <option value="Chorrillos">Chorrillos</option>
+            <option value="Surco">Surco</option>
+          </select>     
+      </div>
+
+
+      <div class="mb-3">        
+        <input type="file" name="file" class="form-control" accept="image/*">    
+      </div>
+
+   
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">Submit form</button>
+    </div>
+  </form>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ url_for('static', filename='js/validar-form.js') }}"></script>
+{% endblock  %}

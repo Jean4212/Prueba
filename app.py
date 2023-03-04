@@ -7,6 +7,7 @@ from routers.users import route_users
 from routers.persons import route_persons
 from routers.index import route_index
 from routers.file import route_file
+from routers.record import route_record
 
 app = FastAPI()
 
@@ -16,6 +17,7 @@ app.include_router(route_index)
 app.include_router(route_users)
 app.include_router(route_persons)
 app.include_router(route_file)
+app.include_router(route_record)
 
 if __name__ == "__main__":
     run("app:app", reload=True)

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %} 
+Asistencia G&A
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/asistencia.css') }}">
+{% endblock css %}
+
+{% block navbar %}
+<header class="bg-dark text-center text-white">
+	<div class="container-xxl">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">                
+			<a class="navbar-brand" href="/">Gruas & Asociados</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+				<div class="navbar-nav">					
+					<a class="nav-link" href="/trabajadores">Trabajadores</a>
+                    <a class="nav-link active" href="/asistencia">Asistencia</a>
+                    <a class="nav-link" href="/desarrollo">Desarrollo</a>
+                    <a class="nav-link" href="/planilla">Planilla</a>
+				</div>
+			</div>               
+		</nav>
+	</div>
+</header> 
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl d-flex justify-content-center" style="margin-top: 20px;">
+    <div class="table-responsive-sm table-responsive-md table-responsive-xs">
+        <table class="table table-sm table-bordered table-hover w-auto">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Apellidos y Nombre</th>
+                    {% for num in range(31) %}
+                        <th scope="col">{{num + 1}}</th>
+                    {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+                {% for data in data  %}
+                    <tr id="lista">
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{data.paterno}} {{data.materno}} {{data.nombre}}</td>
+                            {% for num in range(31) %}
+                                <td name="celda" class="item" id="i{{data.dni}}d{{loop.index}}" style="cursor: pointer;"></td>
+                            {% endfor %}           
+                    </tr>
+                {% endfor %}    
+            </tbody>
+        </table>        
+    </div>
+</div>
+
+
+<!--JS-->
+<script src="{{ url_for('static', path='asistencia-click.js') }}"></script>
+<!--Sweet Alert 2-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}
+
+

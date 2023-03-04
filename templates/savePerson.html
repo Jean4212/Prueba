@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-xl" style="margin-top: 30px; margin-bottom: 30px;">
+  <div class="row">
+
+    <!-- datos personales -->
+    <div class="col-lg-2 col-md-4 col-sm-4">Numero de Dni
+      <input type="text" class="form-control" id="dni" maxlength="8" onkeypress="ValidaNumeros(event)">
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Apellido Paterno
+      <input type="text" class="form-control" id="paterno" maxlength="15" onkeypress="ValidaLetras(event)">
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Apellido Materno
+      <input type="text" class="form-control" id="materno"  maxlength="15" onkeypress="ValidaLetras(event)">
+    </div>
+
+    <div class="col-lg-4 col-md-8 col-sm-8">Nombre
+      <input type="text" class="form-control" id="nombre"  maxlength="25" onkeypress="ValidaLetras(event)">
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Fecha Nacimiento
+      <input type="date" class="form-control" id="nacimiento">
+    </div>
+    
+    <!--Boton Switch-->
+    <div class="col-sm-12">
+      <div class="form-check form-switch" style="margin-top: 30px; margin-bottom: 10px;">
+        <input class="form-check-input" type="checkbox" role="switch" id="Checked1" tabindex="-1" onchange="Checked1(event)" checked>
+        <label class="form-check-label" for="Checked1">Datos Laborales</label>
+      </div>
+    </div>
+
+    <!-- datos laborales -->
+    <div class="col-lg-2 col-md-4 col-sm-4">Fecha Ingreso
+      <input type="date" class="form-control" id="ingreso">
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Sueldo Planilla
+      <input type="text" class="form-control" id="planilla" maxlength="8" onkeypress="ValidaFloat(event)">
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Bono Movilidad
+      <input type="text" class="form-control" id="movilidad"  maxlength="7" onkeypress="ValidaFloat(event)">
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Asignacion Familiar
+      <select class="form-select" id="asignacion">
+        <option></option>
+        <option value="si">Si</option>
+      </select>
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Entidad Aportacion
+      <select class="form-select" id="aportacion" onchange="AporteChange()">
+        <option></option>
+        <option value="habitat">Habitat</option>
+        <option value="integra">Integra</option>
+        <option value="prima">Prima</option>
+        <option value="profuturo">Profuturo</option>
+        <option value="onp">Onp</option>
+      </select>
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Tipo de Comision
+      <select class="form-select" id="comision" onchange="ComisionValid()">
+        <option></option>
+        <option value="flujo">Flujo</option>
+        <option value="mixta">Mixta</option>
+      </select>
+    </div>
+
+    <!-- datos adicionales -->
+    <div class="col-lg-3 col-md-4 col-sm-6">Cuenta Bancaria
+      <input type="text" class="form-control" id="cuenta" maxlength="20" onkeypress="ValidaNumeros(event)">
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">Cargo Laboral
+      <input type="text" class="form-control" id="cargo" maxlength="30" onkeypress="ValidaLetras(event)">
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">Distrito
+      <select class="form-select" id="distrito">
+        <option></option>
+        <option value="Chorrillos">Chorrillos</option>
+        <option value="San Juan de Miraflores">San Juan de Miraflores</option>
+        <option value="Villa el Salvador">Villa el Salvador</option>
+        <option value="Villa Maria del Triunfo">Villa Maria del Triunfo</option>
+        <option value="Comas">Comas</option>
+        <option value="Carabayllo">Carabayllo</option>
+      </select>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">Domicilio
+      <input type="text" class="form-control" id="domicilio" maxlength="50" >
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Area
+      <select class="form-select" id="area">
+        <option></option>
+        <option value="sur">Sur</option>
+        <option value="norte">Norte</option>
+        <option value="taller">Taller</option>
+        <option value="oficina">Oficina</option>
+      </select>
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Codigo Cuspp
+      <input type="text" class="form-control" id="cuspp" maxlength="12" onkeypress="ValidaAlpha(event)">
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Celular
+      <input type="text" class="form-control" id="celular" maxlength="9" onkeypress="ValidaNumeros(event)">
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Licencia 
+      <input type="text" class="form-control" id="licencia" maxlength="9" onkeypress="ValidaAlpha(event)">
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Categoria
+      <select class="form-select" id="categoria">
+        <option></option>
+        <option value="a1">A1</option>
+        <option value="a2a">A2A</option>
+        <option value="a2b">A2B</option>
+        <option value="a3a">A3A</option>
+        <option value="a3b">A3B</option>
+        <option value="a3c">A3C</option>
+      </select>
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-4">Revalidacion
+      <input type="date" class="form-control" id="revalidacion">
+    </div>
+
+    <!-- cargar imagenes -->
+    <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 10px;">Cargar Foto
+      <input type="file" id="file-foto" class="form-control" accept="image/jpeg">
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 10px;">Cargar Dni
+      <input type="file" id="file-dni" class="form-control" accept="image/jpeg">
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 10px;">Cargar Licencia
+      <input type="file" id="file-licencia" class="form-control" accept="image/jpeg">
+    </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 10px;">Cargar Policial
+      <input type="file" id="file-policial" class="form-control" accept="image/jpeg">
+    </div>
+    
+    <!--Boton Guardar-->
+    <div class="col-sm-12">
+      <button class="btn btn-primary" onclick="ValidaDatos()" style="margin-top: 30px;">Grabar Datos</button>
+    </div>
+
+  </div>
+</div>
+
+<!--JS-->
+<script src="{{ url_for('static', path='prueba.js') }}"></script>
+<!--Sweet Alert 2-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock  %}

@@ -16,6 +16,10 @@ const myFunction = (e) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 //Swal.fire('Saved!', '', 'success');
+                if (e.target.classList.add('bg-primary')) {
+                    alert("ya existe apoyo")
+                };
+                return
                 e.target.innerText = "SI";                
                 e.target.classList.add('bg-primary');
                 e.target.classList.remove('bg-danger');

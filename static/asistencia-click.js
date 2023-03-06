@@ -11,14 +11,19 @@ const myFunction = (e) => {
             showCancelButton: true,
             confirmButtonText: 'Apoyo',
             denyButtonText: `Falta`,
+            focusCancel: true,
           }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                Swal.fire('Saved!', '', 'success');
-                e.target.innerText = "X";
+                //Swal.fire('Saved!', '', 'success');
+                e.target.innerText = "SI";                
+                e.target.classList.add('bg-primary');
+                e.target.classList.remove('bg-danger');
             } else if (result.isDenied) {
-                Swal.fire('Saved!', '', 'success');
-                e.target.innerText = "&check;";
+                //Swal.fire('Saved!', '', 'success');
+                e.target.innerText = "NO";  
+                e.target.classList.add('bg-danger');
+                e.target.classList.remove('bg-primary');
             }
         })
         break;

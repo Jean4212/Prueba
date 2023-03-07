@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-xl" style="margin-top: 30px; margin-bottom: 30px;">
+  <div class="row">
+
+    <!-- datos personales -->
+    <div class="col-lg-2 col-md-4 col-sm-4">Numero de Dni
+      <input type="text" name="username" class="form-control" id="username" maxlength="8" >
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Apellido Paterno
+      <input type="text" class="form-control" id="paterno" maxlength="15" >
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Apellido Materno
+      <input type="text" class="form-control" id="materno"  maxlength="15">
+    </div>
+
+    <div class="col-lg-4 col-md-8 col-sm-8">Nombre
+      <input type="text" class="form-control" id="nombre"  maxlength="25">
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-4">Fecha Nacimiento
+      <input type="date" class="form-control" id="nacimiento">
+    </div>
+       
+
+    <!-- cargar imagenes -->
+    <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 10px;">Cargar Foto
+      <input type="file" id="file-foto" class="form-control" accept="image/jpeg">
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 10px;">Cargar Dni
+      <input type="file" id="file-dni" class="form-control" accept="image/jpeg">
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 10px;">Cargar Licencia
+      <input type="file" id="file-licencia" class="form-control" accept="image/jpeg">
+    </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 10px;">Cargar Policial
+      <input type="file" id="file-policial" class="form-control" accept="image/jpeg">
+    </div>
+    
+    <!--Boton Guardar-->
+    <div class="col-sm-12">
+      <button class="btn btn-primary" onclick="probar()" style="margin-top: 30px;">Grabar Datos</button>
+    </div>
+
+  </div>
+</div>
+
+<!--JS-->
+<script src="{{ url_for('static', path='nuevo.js') }}"></script>
+<!--Sweet Alert 2-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock  %}

@@ -181,67 +181,16 @@ function ValidaFloat(event) {
 };
 
 function Checked1(event) {
-    if (event.srcElement.checked){        
-        document.getElementById("ingreso").disabled = false;
-        document.getElementById("planilla").disabled = false; 
-        document.getElementById("movilidad").disabled = false; 
-        document.getElementById("asignacion").disabled = false; 
-        document.getElementById("aportacion").disabled = false; 
-        document.getElementById("comision").disabled = false; 
-        document.getElementById("cuenta").disabled = false;
-        document.getElementById("cargo").disabled = false; 
-        document.getElementById("distrito").disabled = false; 
-        document.getElementById("domicilio").disabled = false; 
-        document.getElementById("area").disabled = false; 
-        document.getElementById("cuspp").disabled = false; 
-        document.getElementById("celular").disabled = false; 
-        document.getElementById("licencia").disabled = false; 
-        document.getElementById("categoria").disabled = false; 
-        document.getElementById("revalidacion").disabled = false; 
-        document.getElementById("file-foto").disabled = false; 
-        document.getElementById("file-dni").disabled = false; 
-        document.getElementById("file-licencia").disabled = false; 
-        document.getElementById("file-policial").disabled = false; 
-    }else{
-        document.getElementById("ingreso").value = "";
-        document.getElementById("ingreso").disabled = true; 
-        document.getElementById("planilla").value = "";
-        document.getElementById("planilla").disabled = true; 
-        document.getElementById("movilidad").value = "";
-        document.getElementById("movilidad").disabled = true; 
-        document.getElementById("asignacion").value = "";
-        document.getElementById("asignacion").disabled = true; 
-        document.getElementById("aportacion").value = "";
-        document.getElementById("aportacion").disabled = true; 
-        document.getElementById("comision").value = "";
-        document.getElementById("comision").disabled = true;
-        document.getElementById("cuenta").value = "";
-        document.getElementById("cuenta").disabled = true;
-        document.getElementById("cargo").value = "";
-        document.getElementById("cargo").disabled = true; 
-        document.getElementById("distrito").value = "";
-        document.getElementById("distrito").disabled = true; 
-        document.getElementById("domicilio").value = "";
-        document.getElementById("domicilio").disabled = true; 
-        document.getElementById("area").value = "";
-        document.getElementById("area").disabled = true; 
-        document.getElementById("cuspp").value = "";
-        document.getElementById("cuspp").disabled = true; 
-        document.getElementById("celular").value = "";
-        document.getElementById("celular").disabled = true; 
-        document.getElementById("licencia").value = "";
-        document.getElementById("licencia").disabled = true; 
-        document.getElementById("categoria").value = "";
-        document.getElementById("categoria").disabled = true; 
-        document.getElementById("revalidacion").value = "";
-        document.getElementById("revalidacion").disabled = true; 
-        document.getElementById("file-foto").value = "";
-        document.getElementById("file-foto").disabled = true; 
-        document.getElementById("file-dni").value = "";
-        document.getElementById("file-dni").disabled = true; 
-        document.getElementById("file-licencia").value = "";
-        document.getElementById("file-licencia").disabled = true; 
-        document.getElementById("file-policial").value = "";
-        document.getElementById("file-policial").disabled = true; 
-    };   
+
+    const ids = ["ingreso", "planilla", "movilidad", "asignacion", "aportacion", "comision", "cuenta", "cargo", "distrito", "domicilio", "area", "cuspp", "celular", "licencia", "categoria", "revalidacion", "file-foto", "file-dni", "file-licencia", "file-policial"];
+      
+    for (const id of ids) {
+        const element = document.getElementById(id);
+        if (event.srcElement.checked) {
+            element.disabled = false;
+        } else {
+            element.value = "";
+            element.disabled = true;
+        }
+    }
 };

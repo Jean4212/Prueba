@@ -46,6 +46,10 @@ class Persons(Base):
     licencia: Mapped[str] = mapped_column(String(9))
     categoria: Mapped[str] = mapped_column(String(3))
     revalidacion: Mapped[str] = mapped_column(String(10))
+    foto: Mapped[str] = mapped_column(String(25))
+    fotodni: Mapped[str] = mapped_column(String(25))
+    fotolicencia: Mapped[str] = mapped_column(String(25))
+    fotopolicial: Mapped[str] = mapped_column(String(25))
     create_at: Mapped[str] = mapped_column(String(30))
 
     def __repr__(self) -> str:

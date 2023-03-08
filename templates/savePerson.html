@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
 
+{% block navbar %}
+<header class="bg-dark text-center text-white">
+	<div class="container-xxl">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">                
+			<a class="navbar-brand" href="/">Gruas & Asociados</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+				<div class="navbar-nav">					
+					<a class="nav-link" href="/trabajadores">Trabajadores</a>
+          <a class="nav-link" href="/asistencia">Asistencia</a>
+          <a class="nav-link" href="/desarrollo">Desarrollo</a>
+          <a class="nav-link" href="/planilla">Planilla</a>
+				</div>
+			</div>               
+		</nav>
+	</div>
+</header> 
+{% endblock %}
+
 {% block content %}
 <div class="container-xl" style="margin-top: 30px; margin-bottom: 30px;">
   <div class="row">

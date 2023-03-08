@@ -25,7 +25,6 @@ Trabajadores G&A
 </header> 
 {% endblock %}
 
-
 {% block content %}
 <div class="container-xxl">
 
@@ -37,43 +36,59 @@ Trabajadores G&A
             </div>
         </div>
     </div>
-
     
     <div class="row row-cols-xs-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-        {% for data in data %}
+        {% for datos in data %}
             <div class="col d-flex justify-content-center">
                 <div class="card text-center" style="width: 14rem; margin-top: 20px;">
-                    <img src="/static/11.jpeg" class="card-img-top" alt="..." 
-                        data-bs-toggle="modal" data-bs-target="#i{{data.dni}}" style="cursor: pointer;">
+                    
+                    {% if datos.foto %}
+                        <img src="/static/uploads/{{datos.foto}}" class="card-img-top" alt="..."                         data-bs-toggle="modal" data-bs-target="#i{{datos.dni}}" style="cursor: pointer;">
+                    {% else %}
+                        <img src="/static/prueba.jpg" class="card-img-top" alt="..." 
+                        data-bs-toggle="modal" data-bs-target="#i{{datos.dni}}" style="cursor: pointer;">
+                    {% endif %}                    
+
                     <div class="card-body">
-                        <h5 class="card-title">{{ data.paterno }} {{ data.materno }}<br>{{ data.nombre }}</h5>
-                        <p class="card-text"> {{ data.cargo }}<br>{{ data.dni }}</p>            
+                        <h5 class="card-title">{{ datos.paterno.capitalize() }} {{ datos.materno.capitalize() }}<br>{{ datos.nombre.title() }}</h5>
+                        <p class="card-text"> {{ datos.cargo.title() }}<br>{{ datos.dni }}</p>            
                     </div>
                 </div>
             </div>
-
             
-            <div class="modal fade" id="i{{data.dni}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="i{{datos.dni}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{data.paterno}} {{data.materno}} {{data.nombre}}</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ datos.paterno.capitalize() }} {{ datos.materno.capitalize() }} {{ datos.nombre.title() }}</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Fecha de nacimiento: {{data.nacimiento}}</p>
-                            <p>Fecha de ingreso: {{data.ingreso}}</p>                                                        
-                            <p>Numero de licencia: {{data.licencia}}</p>
-                            <p>Categoria de licencia: {{data.categoria}}</p>
-                            <p>Fecha de revalidacion: {{data.revalidacion}}</p>
-                            <p>Distrito: {{data.distrito}}</p>
-                            <a href="" download="Dni.jpeg">Dni</a>
-                            <a href="" download="Licencia.jpeg">Licencia</a>
-                            <a href="" download="Policial.jpeg">Policial</a>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>        
-                        </div>
+                            <p>Nacimiento: <textblue class="text-primary">{{ datos.nacimiento }}</textblue></p>
+                            <p>Ingreso: <textblue class="text-primary">{{ datos.ingreso }} </textblue><p>                                                        
+                            <p>Licencia: <textblue class="text-primary">{{ datos.licencia.upper() }}</textblue></p>
+                            <p>Categoria: <textblue class="text-primary">{{ datos.categoria.upper() }}</textblue></p>
+                            <p>Revalidacion: <textblue class="text-primary">{{ datos.revalidacion }}</textblue></p>
+                            <p>Distrito: <textblue class="text-primary">{{ datos.distrito }}</textblue></p>
+                            <p>Domicilio: <textblue class="text-primary">{{ datos.domicilio.title() }}</textblue></p>
+                            <p>Cuenta: <textblue class="text-primary">{{ datos.cuenta }}</textblue></p>
+                            <p>Area: <textblue class="text-primary">{{ datos.area.capitalize() }}</textblue></p>                           
+                            
+                            {% if datos.fotodni %}
+                                <a href="/static/uploads/{{datos.fotodni}}" download="{{datos.fotodni}}" style="text-decoration:none">Dni</a>
+                                &nbsp
+                            {% endif %}
+
+                            {% if datos.fotolicencia %}
+                                <a href="/static/uploads/{{datos.fotolicencia}}" download="{{datos.fotolicencia}}" style="text-decoration:none">Licencia</a>
+                                &nbsp
+                            {% endif %}
+
+                            {% if datos.fotopolicial %}
+                                <a href="/static/uploads/{{datos.fotopolicial}}" download="{{datos.fotopolicial}}" style="text-decoration:none">Policial</a>
+                            {% endif %}  
+                            
+                        </div>                       
                     </div>
                 </div>
             </div>

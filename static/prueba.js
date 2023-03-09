@@ -55,133 +55,72 @@ function ValidaDatos() {
     EnviarDatos(data);        
 };
 
-function EnviarDatos(data) {
+function EnviarDatos(datos) {
     fetch('/persons', {
         method: 'POST',       
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},    
-        body: JSON.stringify(data),    
+        body: JSON.stringify(datos),    
     })            
-    .then((response) => response.json())
-    .then((result) => {     
-        if (result.success) {
-            dni = data.dni          
-            document.getElementById("dni").value = "";
-            document.getElementById("paterno").value = "";
-            document.getElementById("materno").value = "";
-            document.getElementById("nombre").value = ""; 
-            document.getElementById("nacimiento").value = "";
-            document.getElementById("ingreso").value = "";
-            document.getElementById("planilla").value = "";
-            document.getElementById("movilidad").value = "";
-            document.getElementById("asignacion").value = ""; 
-            document.getElementById("aportacion").value = "";
-            document.getElementById("comision").value = "";
-            document.getElementById("cuenta").value = "";
-            document.getElementById("cargo").value = "";
-            document.getElementById("distrito").value = "";
-            document.getElementById("domicilio").value = "";
-            document.getElementById("area").value = "";
-            document.getElementById("cuspp").value = "";
-            document.getElementById("celular").value = "";
-            document.getElementById("licencia").value = "";
-            document.getElementById("categoria").value = "";
-            document.getElementById("revalidacion").value = "";     
-            document.getElementById("dni").focus();     
+    .then((respuesta) => respuesta.json())
+    .then((resultado) => {     
+        if (resultado.success) {
+            const dni = datos.dni;
+            resetearValores();
+            document.getElementById("dni").focus();
             EnviarImgs(dni);            
-        };        
+        } else {
+            console.log(resultado.success)
+        }; 
+
     })
     .catch((error) => {
         console.log(error);
     });
 };
 
+function resetearValores() {
+    const elementos = ["dni", "paterno", "materno", "nombre", "nacimiento", "ingreso", "planilla", "movilidad", "asignacion", "aportacion", "comision", "cuenta", "cargo", "distrito", "domicilio", "area", "cuspp", "celular", "licencia", "categoria", "revalidacion"];
+    elementos.forEach((elemento) => {
+        document.getElementById(elemento).value = "";
+    });
+};
+
 function EnviarImgs(dni) {
-    const fileFoto = document.getElementById("file-foto");
-    const fileDni = document.getElementById("file-dni");
-    const fileLicencia = document.getElementById("file-licencia");
-    const filePolicial = document.getElementById("file-policial");
+    
+    const newFormData = new FormData();
+    const inputsId = ["file-foto", "file-dni", "file-licencia", "file-policial"];    
+    let proceded = false;
 
-    if (fileFoto.value || fileDni.value || fileLicencia.value || filePolicial.value) {
-        const newFormData = new FormData();
+    inputsId.forEach((id) => {       
+        const input = document.getElementById(id);
+        if (input.value) {
+            const fileName = "${dni}-${id.split('-')[1]}.jpg";
+            console.log("${dni} haha")
 
-        if (fileFoto.value){newFormData.append("files", fileFoto.files[0], dni + "-foto.jpg")};
-        if (fileDni.value){newFormData.append("files", fileDni.files[0], dni + "-dni.jpg")};
-        if (fileLicencia.value){newFormData.append("files", fileLicencia.files[0], dni + "-licencia.jpg")};
-        if (filePolicial.value){newFormData.append("files", filePolicial.files[0], dni + "-policial.jpg")};
+            newFormData.append("files", input.files[0], fileName);
+            input.value = "";
+            proceded = true;
+        };
+    });
 
+    if (proceded) {
         fetch('/uploadfiles', {
             method: 'POST',        
             body: newFormData
-        })
-        .then(response => response.json())
-        .then(result => {          
-            if (result.success) {                
-                document.getElementById("file-foto").value = "";
-                document.getElementById("file-dni").value = ""; 
-                document.getElementById("file-licencia").value = "";
-                document.getElementById("file-policial").value = "";    
-            }                       
-        })
-        .catch(err => {
-            console.log(err);
         });
-    }; 
-    
-    Swal.fire({        
-        icon: 'success',
-        title: 'Los Datos Fueron Guardados',
-        showConfirmButton: false,
-        timer: 1200
-      });
+        Swal.fire({        
+            icon: 'success',
+            title: 'Los Datos Fueron Guardados',
+            showConfirmButton: false,
+            timer: 1200
+        });
+    };   
 };
 
-function ComisionValid() {
-    const aportacion = document.getElementById("aportacion");
-    const comision = document.getElementById("comision");
-    if (comision.value && (aportacion.value == "onp" || aportacion.value == "")){        
-        comision.value = "";
-        aportacion.focus();
-    };
-};
 
-function AporteChange() {
-    const aportacion = document.getElementById("aportacion");
-    const comision = document.getElementById("comision");
-    if (!aportacion.value || aportacion.value == "onp"){        
-        comision.value = ""
-    };
-};
 
-function ValidaNumeros(event) {
-    let key = event.keyCode;
-    if (key < 48 || key > 57){
-        event.returnValue = false;
-    };      
-};
 
-function ValidaLetras(event) {    
-    let key = event.keyCode;
-    if ((key < 65 || key > 90) && (key < 97 || key > 122) && (key < 241 || key > 241) && (key < 209 || key > 209) && (key < 32 || key > 32)){
-        event.returnValue = false;   
-    };                   
-};
-
-function ValidaAlpha(event) {
-    let key = event.keyCode;    
-    if ((key < 48 || key > 57) && (key < 65 || key > 90) && (key < 97 || key > 122)){
-        event.returnValue = false;
-    };                   
-};
-
-function ValidaFloat(event) {
-    let key = event.keyCode;
-    if ((key < 48 || key > 57) && (key < 46 || key > 46)){
-        event.returnValue = false;
-    };         
-};
-
-function Checked1(event) {
-
+function validSwitch(event) {
     const ids = ["ingreso", "planilla", "movilidad", "asignacion", "aportacion", "comision", "cuenta", "cargo", "distrito", "domicilio", "area", "cuspp", "celular", "licencia", "categoria", "revalidacion", "file-foto", "file-dni", "file-licencia", "file-policial"];
       
     for (const id of ids) {
@@ -192,5 +131,22 @@ function Checked1(event) {
             element.value = "";
             element.disabled = true;
         }
-    }
+    };
+};
+
+function validAportacion() {    
+    const aportacion = document.getElementById("aportacion");
+    const comision = document.getElementById("comision");
+    if (!aportacion.value || aportacion.value == "onp"){        
+        comision.value = null
+    };
+};
+
+function validComision() {
+    const aportacion = document.getElementById("aportacion");
+    const comision = document.getElementById("comision");
+    if (comision.value && (aportacion.value == "onp" || !aportacion.value)){        
+        comision.value = null
+        aportacion.focus();
+    };
 };

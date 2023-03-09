@@ -27,19 +27,19 @@
 
     <!-- datos personales -->
     <div class="col-lg-2 col-md-4 col-sm-4">Numero de Dni
-      <input type="text" name="username" class="form-control" id="dni" maxlength="8" onkeypress="ValidaNumeros(event)">
+      <input type="text" class="form-control" id="dni" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')">     
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Apellido Paterno
-      <input type="text" class="form-control" id="paterno" maxlength="15" onkeypress="ValidaLetras(event)">
+      <input type="text" class="form-control" id="paterno" maxlength="15" oninput="this.value=this.value.replace(/[^a-zA-ZñÑ\s]/g,'')">
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Apellido Materno
-      <input type="text" class="form-control" id="materno"  maxlength="15" onkeypress="ValidaLetras(event)">
+      <input type="text" class="form-control" id="materno" maxlength="15" oninput="this.value=this.value.replace(/[^a-zA-ZñÑ\s]/g,'')">
     </div>
 
     <div class="col-lg-4 col-md-8 col-sm-8">Nombre
-      <input type="text" class="form-control" id="nombre"  maxlength="25" onkeypress="ValidaLetras(event)">
+      <input type="text" class="form-control" id="nombre" maxlength="25" oninput="this.value=this.value.replace(/[^a-zA-ZñÑ\s]/g,'')">
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Fecha Nacimiento
@@ -49,7 +49,7 @@
     <!--Boton Switch-->
     <div class="col-sm-12">
       <div class="form-check form-switch" style="margin-top: 30px; margin-bottom: 10px;">
-        <input class="form-check-input" type="checkbox" role="switch" id="Checked1" tabindex="-1" onchange="Checked1(event)" checked>
+        <input class="form-check-input" type="checkbox" role="switch" id="Checked1" tabindex="-1" onchange="validSwitch(event)" checked>
         <label class="form-check-label" for="Checked1">Datos Laborales</label>
       </div>
     </div>
@@ -60,11 +60,11 @@
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Sueldo Planilla
-      <input type="text" class="form-control" id="planilla" maxlength="8" onkeypress="ValidaFloat(event)">
+      <input type="text" class="form-control" id="planilla" maxlength="7" oninput="this.value=this.value.replace(/^0*(\D*)(\d*(?:\.\d{0,2})?)\.*(\d{0,2})?.*/g,'$2$3')">
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Bono Movilidad
-      <input type="text" class="form-control" id="movilidad"  maxlength="7" onkeypress="ValidaFloat(event)">
+      <input type="text" class="form-control" id="movilidad" maxlength="6" oninput="this.value=this.value.replace(/^0*(\D*)(\d*(?:\.\d{0,2})?)\.*(\d{0,2})?.*/g,'$2$3')">
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Asignacion Familiar
@@ -75,7 +75,7 @@
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Entidad Aportacion
-      <select class="form-select" id="aportacion" onchange="AporteChange()">
+      <select class="form-select" id="aportacion" onchange="validAportacion()">
         <option></option>
         <option value="habitat">Habitat</option>
         <option value="integra">Integra</option>
@@ -86,7 +86,7 @@
     </div>
 
     <div class="col-lg-2 col-md-4 col-sm-4">Tipo de Comision
-      <select class="form-select" id="comision" onchange="ComisionValid()">
+      <select class="form-select" id="comision" onchange="validComision()">
         <option></option>
         <option value="flujo">Flujo</option>
         <option value="mixta">Mixta</option>
@@ -95,11 +95,11 @@
 
     <!-- datos adicionales -->
     <div class="col-lg-3 col-md-4 col-sm-6">Cuenta Bancaria
-      <input type="text" class="form-control" id="cuenta" maxlength="20" onkeypress="ValidaNumeros(event)">
+      <input type="text" class="form-control" id="cuenta" maxlength="20" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
     </div>
 
     <div class="col-lg-3 col-md-4 col-sm-6">Cargo Laboral
-      <input type="text" class="form-control" id="cargo" maxlength="30" onkeypress="ValidaLetras(event)">
+      <input type="text" class="form-control" id="cargo" maxlength="30" oninput="this.value=this.value.replace(/[^a-zA-ZñÑ\s]/g,'')">
     </div>
 
     <div class="col-lg-3 col-md-4 col-sm-6">Distrito
@@ -129,15 +129,15 @@
     </div>
 
     <div class="col-lg-2 col-md-3 col-sm-4">Codigo Cuspp
-      <input type="text" class="form-control" id="cuspp" maxlength="12" onkeypress="ValidaAlpha(event)">
+      <input type="text" class="form-control" id="cuspp" maxlength="12" oninput="this.value=this.value.replace(/[^a-zA-ZñÑ0-9]/g,'')">
     </div>
 
     <div class="col-lg-2 col-md-3 col-sm-4">Celular
-      <input type="text" class="form-control" id="celular" maxlength="9" onkeypress="ValidaNumeros(event)">
+      <input type="text" class="form-control" id="celular" maxlength="9" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
     </div>
 
     <div class="col-lg-2 col-md-3 col-sm-4">Licencia 
-      <input type="text" class="form-control" id="licencia" maxlength="9" onkeypress="ValidaAlpha(event)">
+      <input type="text" class="form-control" id="licencia" maxlength="9" oninput="this.value=this.value.replace(/[^a-zA-ZñÑ0-9]/g,'')">
     </div>
 
     <div class="col-lg-2 col-md-3 col-sm-4">Categoria

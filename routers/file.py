@@ -20,6 +20,8 @@ async def create_upload_files(files: list[UploadFile] = File(...)):
 
     for file in files:
 
+        print(file.filename)
+
         nombrefile = file.filename.split(".")[0].split("-")[1]
         dni = file.filename.split(".")[0].split("-")[0]
         

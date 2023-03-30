@@ -117,9 +117,6 @@ function EnviarImgs(dni) {
     };   
 };
 
-
-
-
 function validSwitch(event) {
     const ids = ["ingreso", "planilla", "movilidad", "asignacion", "aportacion", "comision", "cuenta", "cargo", "distrito", "domicilio", "area", "cuspp", "celular", "licencia", "categoria", "revalidacion", "file-foto", "file-dni", "file-licencia", "file-policial"];
       

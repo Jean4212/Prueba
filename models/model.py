@@ -12,13 +12,14 @@ class Users(Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(String(12))
+    username: Mapped[str] = mapped_column(String(10))
     password: Mapped[str] = mapped_column(String(12))
+    name:  Mapped[str] = mapped_column(String(40))
     create_at: Mapped[str] = mapped_column(String(30))
 
     def __repr__(self) -> str:
         
-        return f"Users(id={self.id!r}, username={self.username!r}, password={self.password!r}, create_at={self.create_at!r})"
+        return f"Users(id={self.id!r}, username={self.username!r}, password={self.password!r}, name={self.name!r}, create_at={self.create_at!r})"
 
 class Persons(Base):
 

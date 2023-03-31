@@ -10,7 +10,7 @@ route_index = APIRouter()
 
 @route_index.get("/", response_class=HTMLResponse)
 def index(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @route_index.get("/trabajadores", response_class=HTMLResponse)
 def trabajadores(request: Request):

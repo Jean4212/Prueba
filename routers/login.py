@@ -1,64 +1,60 @@
-from fastapi import APIRouter, HTTPException, Response, Request, Form, Cookie
-from fastapi.security import HTTPBearer
+from fastapi import APIRouter, HTTPException, Depends, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.templating import Jinja2Templates
-import jwt
+from typing import Optional
 
-from models.model import Users, session
-from sqlalchemy import Select
-from datetime import datetime, timedelta
-
-secret_key = "mi_clave_secreta"
-
-templates = Jinja2Templates(directory="templates")
+template = Jinja2Templates(directory="templates")
 Login = APIRouter()
 
+# Usuarios de prueba para demostración
+users = [
+    {"username": "user1", "password": "password1", "roles": ["admin"]},
+    {"username": "user2", "password": "password2", "roles": ["user"]},
+]
+
+# Función para verificar las credenciales del usuario
+def verify_user(credentials: HTTPBasicCredentials):
+    for user in users:
+        if user["username"] == credentials.username and user["password"] == credentials.password:
+            return user
+    raise HTTPException(status_code=401, detail="Invalid username or password")
+
+# Objeto HTTPBasic para autenticación
+security = HTTPBasic()
+
+
+def get_token(request: Request):
+    """
+    Obtiene el token de autenticación de la solicitud HTTP.
+    """
+    authorization_header = request.headers.get("Authorization")
+    print(authorization_header)
+    if authorization_header is None:
+        return None
+    auth_scheme, auth_param = authorization_header.split(" ", 1)
+    if auth_scheme.lower() != "bearer":
+        return None
+    return auth_param
+
 @Login.get("/login", response_class=HTMLResponse)
-def login_user(request: Request, token: str = Cookie(None)): 
-    try:
-        if token:
-            payload = jwt.decode(token, secret_key, algorithms=["HS256"])
-            username = payload.get("username")
-            name = payload.get("name")
-        
-            if username and name:
-                return templates.TemplateResponse("index.html", {"request": request, "username": username})
-        else:
-            raise ValueError("No se proporcionó ningún token")
-            
-    except (jwt.exceptions.InvalidSignatureError, jwt.exceptions.ExpiredSignatureError, jwt.exceptions.DecodeError) as e:
-        print(f"Error al decodificar el token: {e}")
-    
-    return templates.TemplateResponse("login.html", {"request": request})
-
-@Login.post("/login", response_class=HTMLResponse)
-def verify_user(request: Request, response: Response, username: str = Form(...), password: str = Form(...), token: str = Cookie(None)):
-
+async def login(request: Request):
+    # Verificar si el usuario ya tiene un token almacenado
+    token = get_token(request)
+    print(token)
     if token:
-        try:
-            payload = jwt.decode(token, secret_key, algorithms=["HS256"])
-            username = payload.get("username")
-            name = payload.get("name")
-        
-            if username and name:
-                return RedirectResponse(url="/")
-        except (jwt.exceptions.InvalidSignatureError, jwt.exceptions.ExpiredSignatureError):
-            pass
-    
-    query = Select(Users).filter(Users.username == username)
+        return RedirectResponse(url="/protected")
 
-    try:
-        user = session.scalars(query).one()
+    # Si no hay un token almacenado, mostrar la página de inicio de sesión
+    return template.TemplateResponse("login.html", {"request": request})
 
-        if user.password != password:
-            return templates.TemplateResponse("login.html", {"request": request})
-    except:
-        return templates.TemplateResponse("login.html", {"request": request})
-        
-    payload = {"username": user.username, "name": user.name, 'exp': datetime.utcnow() + timedelta(days=1)}
-    token = jwt.encode(payload, secret_key, algorithm="HS256")
+# Ruta de login para obtener un token de acceso
+@Login.post("/login")
+async def login(credentials: HTTPBasicCredentials = Depends(security)):
+    user = verify_user(credentials)
+    return {"token": user["username"]}
 
-    response = RedirectResponse(url='/')
-    response.set_cookie(key="token", value=token)
-    
-    return response
+# Ruta protegida para usuarios autenticados
+@Login.get("/protected")
+async def protected(user: str = Depends(security)):
+    return {"message": "Welcome to the protected area!"}

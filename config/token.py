@@ -7,6 +7,7 @@ from jwt import encode, decode, ExpiredSignatureError, InvalidTokenError
 # Configuración de seguridad
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 ALGORITHM = "HS256"
 SECRET_KEY = "e8c45edd00c78200a1913b46eac799a375a97e76"
 
@@ -28,37 +29,46 @@ users = [
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
-def get_user(username: str):
-    for user in users:
-        if user["username"] == username:
+def get_user(username: str):    
+    for user in users:        
+        if user["username"] == username:            
             return user
 
-def authenticate_user(username: str, password: str):
+def authenticate_user(username: str, password: str):    
     user = get_user(username)
+    
     if not user:
         return False
+    
     if not verify_password(password, user["password"]):
         return False
+    
     return user
 
 # Funciones de token
-def create_access_token(data: dict, expires_delta: timedelta):
+def create_access_token(data: dict):
     to_encode = data.copy()
-    expire = datetime.utcnow() + expires_delta
+    expire = datetime.utcnow() + timedelta(days=7)
     to_encode.update({"exp": expire})
-    encoded_jwt = encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)    
+   
     return encoded_jwt
 
 # Verificar token
-def decode_token(token: str = Depends(oauth2_scheme)):
+def decode_token(token: str = Depends(oauth2_scheme)):    
     try:
         payload = decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username = payload.get("sub")
+
         if username is None:
             raise HTTPException(status_code=401, detail="Invalid token")
+        
         token_data = {"username": username}
+
     except ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Token has expired")
+    
     except InvalidTokenError:
-        raise HTTPException(status_code=401, detail="Invalid token")   
+        raise HTTPException(status_code=401, detail="Invalid token")
+      
     return token_data

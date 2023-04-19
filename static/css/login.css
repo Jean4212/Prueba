@@ -1,12 +1,6 @@
 body {
   background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
 }
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 form {
   width: 300px;
 }

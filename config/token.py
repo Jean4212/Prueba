@@ -1,8 +1,10 @@
 from fastapi import HTTPException, Depends
+from fastapi.responses import RedirectResponse
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from jwt import encode, decode, ExpiredSignatureError, InvalidTokenError
+from models.model import session, Users
 
 # Configuración de seguridad
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -12,27 +14,21 @@ ALGORITHM = "HS256"
 SECRET_KEY = "e8c45edd00c78200a1913b46eac799a375a97e76"
 
 # Datos del usuario
-users = [
-    {
-        "username": "user1",
-        "password": "$2y$10$FjgO1pdhw/wAd2YYGSPD6uXPpZcC36/lEh9jBO9ZP/FLwOCMRlnwK", # password: password1
-        "disabled": False
-    },
-    {
-        "username": "user2",
-        "password": "$2y$10$u3n9dSlksqz5QeVnIet8q.NUJduwMPoBiBTTlqY0Gai4ZM9j/kwra", # password: password2
-        "disabled": True
-    },
-]
 
+datos = session.query(Users).all()
+users = {}
+for user in datos:
+    dic = {"id": user.id, "name": user.name, "username": user.username, "password": user.password, "category": user.category, "create_at": user.create_at}
+    users[user.username] = dic
+    
 # Funciones de autenticación
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 def get_user(username: str):    
-    for user in users:        
-        if user["username"] == username:            
-            return user
+    if username in users:  
+        user_dict = users[username]
+        return user_dict
 
 def authenticate_user(username: str, password: str):    
     user = get_user(username)
@@ -61,14 +57,18 @@ def decode_token(token: str = Depends(oauth2_scheme)):
         username = payload.get("sub")
 
         if username is None:
+            #return RedirectResponse(url="/login")
             raise HTTPException(status_code=401, detail="Invalid token")
+        
         
         token_data = {"username": username}
 
     except ExpiredSignatureError:
+        #return RedirectResponse(url="/login")
         raise HTTPException(status_code=401, detail="Token has expired")
     
     except InvalidTokenError:
+        #return RedirectResponse(url="/login")
         raise HTTPException(status_code=401, detail="Invalid token")
       
     return token_data

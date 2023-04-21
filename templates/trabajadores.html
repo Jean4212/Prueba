@@ -1,35 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}
-Trabajadores G&A
+{% block title %} 
+<title>Trabajadores</title>
 {% endblock %}
 
 {% block navbar %}
-<header class="bg-dark text-center text-white">
-	<div class="container-xxl">
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark">                
-			<a class="navbar-brand" href="/">Gruas & Asociados</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-				<div class="navbar-nav">					
-					<a class="nav-link active" href="/trabajadores">Trabajadores</a>
-                    <a class="nav-link" href="/asistencia">Asistencia</a>
-                    <a class="nav-link" href="/desarrollo">Desarrollo</a>
-                    <a class="nav-link" href="/planilla">Planilla</a>
-				</div>
-			</div>               
-		</nav>
-	</div>
-</header> 
-{% endblock %}
+<a class="nav-link active" href="/">TRABAJADORES</a>
+<a class="nav-link" href="/">SUPERVISION</a>
+<a class="nav-link" href="/">SSTMA</a>
+<a class="nav-link" href="/">RRHH</a>
+{% endblock navbar %}
 
 {% block content %}
-<div class="container-xxl">
+<div class="container-xxl" style="padding-top: 20px; padding-bottom: 20px;">
 
     <div class="d-flex justify-content-center">
-        <div style="margin-top: 20px; width: 80%;">
+        <div style="width: 80%;">
             <div class="input-group rounded">
                 <input id="search" type="search" class="form-control rounded searchbox-input" placeholder="Buscar" 
                     aria-label="Search" aria-describedby="search-addon" onkeyup="buttonUp();" required/>
@@ -37,21 +23,21 @@ Trabajadores G&A
         </div>
     </div>
     
-    <div class="row row-cols-xs-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+    <div class="row row-cols-xs-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6">
+        
         {% for datos in data %}
             <div class="col d-flex justify-content-center">
-                <div class="card text-center" style="width: 14rem; margin-top: 20px;">
+                <div class="card text-center" style="width: 200px; margin-top: 20px;">
                     
                     {% if datos.foto %}
-                        <img src="/static/uploads/{{datos.foto}}" class="card-img-top" alt="..."                         data-bs-toggle="modal" data-bs-target="#i{{datos.dni}}" style="cursor: pointer;">
+                        <img src="/static/uploads/{{datos.foto}}" height="240" class="card-img-top" alt="..." data-bs-toggle="modal" data-bs-target="#i{{datos.dni}}" style="cursor: pointer;">
                     {% else %}
-                        <img src="/static/prueba.jpg" class="card-img-top" alt="..." 
-                        data-bs-toggle="modal" data-bs-target="#i{{datos.dni}}" style="cursor: pointer;">
+                        <img src="/static/prueba.jpg" height="240" class="card-img-top" alt="..." data-bs-toggle="modal" data-bs-target="#i{{datos.dni}}" style="cursor: pointer;">
                     {% endif %}                    
 
                     <div class="card-body">
-                        <h5 class="card-title">{{ datos.paterno.capitalize() }} {{ datos.materno.capitalize() }}<br>{{ datos.nombre.title() }}</h5>
-                        <p class="card-text"> {{ datos.cargo.title() }}<br>{{ datos.dni }}</p>            
+                        <h6 class="card-title">{{ datos.paterno.capitalize() }} {{ datos.materno.capitalize() }}<br>{{ datos.nombre.title() }}</h6>
+                        {{ datos.dni }}        
                     </div>
                 </div>
             </div>
@@ -64,15 +50,15 @@ Trabajadores G&A
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Nacimiento: <textblue class="text-primary">{{ datos.nacimiento }}</textblue></p>
-                            <p>Ingreso: <textblue class="text-primary">{{ datos.ingreso }} </textblue><p>                                                        
-                            <p>Licencia: <textblue class="text-primary">{{ datos.licencia.upper() }}</textblue></p>
-                            <p>Categoria: <textblue class="text-primary">{{ datos.categoria.upper() }}</textblue></p>
-                            <p>Revalidacion: <textblue class="text-primary">{{ datos.revalidacion }}</textblue></p>
-                            <p>Distrito: <textblue class="text-primary">{{ datos.distrito }}</textblue></p>
-                            <p>Domicilio: <textblue class="text-primary">{{ datos.domicilio.title() }}</textblue></p>
-                            <p>Cuenta: <textblue class="text-primary">{{ datos.cuenta }}</textblue></p>
-                            <p>Area: <textblue class="text-primary">{{ datos.area.capitalize() }}</textblue></p>                           
+                            Nacimiento: {{ datos.nacimiento }} <br>
+                            Ingreso: {{ datos.ingreso }} <br>
+                            Licencia: {{ datos.licencia.upper() }} <br>
+                            Categoria: {{ datos.categoria.upper() }} <br>
+                            Revalidacion: {{ datos.revalidacion }} <br>
+                            Distrito: {{ datos.distrito }} <br>
+                            Domicilio: {{ datos.domicilio.title() }} <br>
+                            Cuenta: {{ datos.cuenta }} <br>
+                            Area: {{ datos.area.capitalize() }} <br>                         
                             
                             {% if datos.fotodni %}
                                 <a href="/static/uploads/{{datos.fotodni}}" download="{{datos.fotodni}}" style="text-decoration:none">Dni</a>
@@ -92,8 +78,10 @@ Trabajadores G&A
                     </div>
                 </div>
             </div>
-        {% endfor %}
+
+        {% endfor %}    
     </div>
+
 </div>
 
 <!--JS-->

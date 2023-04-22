@@ -7,11 +7,11 @@ from config.token import authenticate_user, create_access_token, decode_token
 login = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
-@login.post("/token")
-def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
+@login.post("/login")
+async def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
     username = form_data.username
     password = form_data.password
-    user = authenticate_user(username, password) 
+    user = await authenticate_user(username, password) 
 
     if not user:
         message = "No Autorizado !"
@@ -19,14 +19,16 @@ def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
         response.set_cookie(key="X-Message", value=message)
         return response       
     
-    access_token = create_access_token(data={"sub": user["username"]})       
+    del user["password"]
+   
+    access_token = await create_access_token(data={"sub": user})       
     
     response = RedirectResponse(url="/", status_code=303)    
     response.set_cookie(key="access_token", value=access_token, max_age=None, httponly=True)#, secure=True, samesite="strict")
     return response
 
 @login.get("/login")
-def login_user(request: Request): 
+async def login_user(request: Request): 
     access_token = request.cookies.get('access_token')
 
     if access_token is None:     
@@ -38,25 +40,21 @@ def login_user(request: Request):
      
         return response
         
-    token_verify = decode_token(access_token)
+    token_verify = await decode_token(access_token)
 
     if token_verify:        
         return RedirectResponse(url="/")    
   
-@login.route("/", methods=["GET", "POST"])
-def login_user(request: Request): 
-    access_token = request.cookies.get('access_token')   
-
-    if access_token is None:
-        return RedirectResponse(url="/login") 
-        
-    token_verify = decode_token(access_token)
-
-    if token_verify:
-        return templates.TemplateResponse("index.html", {"request": request})
-
 @login.get("/logout")
-async def logout_user():
+async def logout_user(request: Request):
+    access_token = request.cookies.get('access_token')   
     response = RedirectResponse(url="/login")
-    response.delete_cookie(key="access_token")
-    return response
+
+    if access_token is None:      
+        return response 
+        
+    token_verify = await decode_token(access_token)
+
+    if token_verify:       
+        response.delete_cookie(key="access_token")
+        return response

@@ -1,19 +1,24 @@
 from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-from models.model import Persons, session
-from sqlalchemy import Select
+from config.token import decode_token
 
 templates = Jinja2Templates(directory="templates")
+index = APIRouter()
 
-route_index = APIRouter()
+@index.route("/", methods=["GET", "POST"])
+async def Index(request: Request): 
+    access_token = request.cookies.get('access_token')   
 
-@route_index.get("/trabajadores", response_class=HTMLResponse)
-def trabajadores(request: Request):
-    query = Select(Persons)
-    data = session.scalars(query).all()  
+    if access_token is None:
+        return RedirectResponse(url="/login") 
+        
+    user = await decode_token(access_token)
 
-    return templates.TemplateResponse("trabajadores.html", {"request": request, "data": data})
+    if user:        
+        return templates.TemplateResponse("index.html", {"request": request, "user": user})
+
+
 
 #@route_index.get("/asistencia", response_class=HTMLResponse)
 #def asistencia(request: Request):
@@ -25,11 +30,3 @@ def trabajadores(request: Request):
 #            "nacimiento": "01/01/2000", "ingreso": "01/01/2022"}
 #        data.append(line)
 #    return templates.TemplateResponse("asistencia.html", {"request": request, "data": data})
-#
-#@route_index.get("/desarrollo", response_class=HTMLResponse)
-#def desarrollo(request: Request):
-#    return templates.TemplateResponse("desarrollo.html", {"request": request})
-#
-#@route_index.get("/planilla", response_class=HTMLResponse)
-#def planilla(request: Request):
-#    return templates.TemplateResponse("planilla.html", {"request": request})

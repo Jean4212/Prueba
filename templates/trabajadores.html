@@ -5,10 +5,27 @@
 {% endblock %}
 
 {% block navbar %}
-<a class="nav-link active" href="/">TRABAJADORES</a>
-<a class="nav-link" href="/">SUPERVISION</a>
-<a class="nav-link" href="/">SSTMA</a>
-<a class="nav-link" href="/">RRHH</a>
+    {% if user.category == 0 %}
+    <a class="nav-link active" href="#">TRABAJADORES</a>
+    <a class="nav-link" href="#">SUPERVISION</a>
+    <a class="nav-link" href="#">SSTMA</a>
+    <a class="nav-link" href="#">RRHH</a>
+    {% elif user.category == 1 %}
+    <a class="nav-link active" href="#">TRABAJADORES</a>
+    <a class="nav-link" href="/supervision">SUPERVISION</a>
+    <a class="nav-link" href="#">SSTMA</a>
+    <a class="nav-link" href="#">RRHH</a>
+    {% elif user.category == 2 %}
+    <a class="nav-link active" href="#">TRABAJADORES</a>
+    <a class="nav-link" href="/supervision">SUPERVISION</a>
+    <a class="nav-link" href="/sstma">SSTMA</a>
+    <a class="nav-link" href="#">RRHH</a>
+    {% elif user.category == 3 %}
+    <a class="nav-link active" href="#">TRABAJADORES</a>
+    <a class="nav-link" href="/supervision">SUPERVISION</a>
+    <a class="nav-link" href="/sstma">SSTMA</a>
+    <a class="nav-link" href="/rrhh">RRHH</a>
+    {% endif %}
 {% endblock navbar %}
 
 {% block content %}

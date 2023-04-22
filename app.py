@@ -3,12 +3,10 @@ from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from routers.users import route_users
-from routers.persons import route_persons
-from routers.index import route_index
-from routers.file import route_file
-from routers.record import route_record
 from routers.login import login
+from routers.index import index
+from routers.trabajadores import trabajadores
+from routers.supervision import supervision
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -32,7 +30,9 @@ async def general_exception_handler(request, exc):
     return RedirectResponse("/")
 
 app.include_router(login)
-app.include_router(route_index)
+app.include_router(index)
+app.include_router(trabajadores)
+app.include_router(supervision)
 
 if __name__ == "__main__":
     run("app:app", host="0.0.0.0", reload=True)

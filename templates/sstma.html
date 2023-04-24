@@ -1,39 +1,36 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
 {% block title %} 
-<title>Home</title>
+<title>SSTMA</title>
 {% endblock %}
 
-{% block css %}
-{% endblock css %}
-
 {% block logo %}
-<a class="navbar-brand" href="#">GRUAS & ASOCIADOS</a>
-{% endblock logo %}       
+<a class="navbar-brand" href="/">GRUAS & ASOCIADOS</a>
+{% endblock logo %}
 
-{% block navbar %}   
+{% block navbar %}
     {% if user.category == 0 %}
-    <a class="nav-link" href="/trabajadores">TRABAJADORES</a>    
+    <a class="nav-link" href="/trabajadores">TRABAJADORES</a> 
 
     {% elif user.category == 1 %}
     <a class="nav-link" href="/trabajadores">TRABAJADORES</a>
-    <a class="nav-link" href="/supervision">SUPERVISION</a>
-    
+    <a class="nav-link" href="/supervision">SUPERVISION</a>    
+
     {% elif user.category == 2 %}
     <a class="nav-link" href="/trabajadores">TRABAJADORES</a>
     <a class="nav-link" href="/supervision">SUPERVISION</a>
-    <a class="nav-link" href="/sstma">SSTMA</a>
-   
+    <a class="nav-link active" href="#">SSTMA</a>  
+
     {% elif user.category == 3 %}
     <a class="nav-link" href="/trabajadores">TRABAJADORES</a>
     <a class="nav-link" href="/supervision">SUPERVISION</a>
-    <a class="nav-link" href="/sstma">SSTMA</a>
+    <a class="nav-link active" href="#">SSTMA</a>
     <a class="nav-link" href="/rrhh">RRHH</a>
     {% endif %}
 {% endblock navbar %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center">   
-    <h1>Bienvenido: {{user.username}}, Categoria: {{user.category}}</h1>
-</div>
+<div>SSTMA</div>
 {% endblock %}
+
+

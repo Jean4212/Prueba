@@ -4,22 +4,23 @@
 <title>Supervision</title>
 {% endblock %}
 
+{% block logo %}
+<a class="navbar-brand" href="/">GRUAS & ASOCIADOS</a>
+{% endblock logo %}
+
 {% block navbar %}
     {% if user.category == 0 %}
     <a class="nav-link" href="/trabajadores">TRABAJADORES</a>
-    <a class="nav-link active" href="#">SUPERVISION</a>
-    <a class="nav-link" href="#">SSTMA</a>
-    <a class="nav-link" href="#">RRHH</a>
+
     {% elif user.category == 1 %}
     <a class="nav-link" href="/trabajadores">TRABAJADORES</a>
-    <a class="nav-link active" href="#">SUPERVISION</a>
-    <a class="nav-link" href="#">SSTMA</a>
-    <a class="nav-link" href="#">RRHH</a>
+    <a class="nav-link active" href="#">SUPERVISION</a>    
+
     {% elif user.category == 2 %}
     <a class="nav-link" href="/trabajadores">TRABAJADORES</a>
     <a class="nav-link active" href="#">SUPERVISION</a>
-    <a class="nav-link" href="/sstma">SSTMA</a>
-    <a class="nav-link" href="#">RRHH</a>
+    <a class="nav-link" href="/sstma">SSTMA</a>  
+
     {% elif user.category == 3 %}
     <a class="nav-link" href="/trabajadores">TRABAJADORES</a>
     <a class="nav-link active" href="#">SUPERVISION</a>
@@ -29,6 +30,7 @@
 {% endblock navbar %}
 
 {% block content %}
+<div>SUPERVISION</div>
 {% endblock %}
 
 

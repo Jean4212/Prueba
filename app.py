@@ -7,6 +7,8 @@ from routers.login import login
 from routers.index import index
 from routers.trabajadores import trabajadores
 from routers.supervision import supervision
+from routers.sstma import sstma
+from routers.rrhh import rrhh
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -33,6 +35,8 @@ app.include_router(login)
 app.include_router(index)
 app.include_router(trabajadores)
 app.include_router(supervision)
+app.include_router(sstma)
+app.include_router(rrhh)
 
 if __name__ == "__main__":
     run("app:app", host="0.0.0.0", reload=True)

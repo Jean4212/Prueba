@@ -30,5 +30,21 @@
 {% endblock navbar %}
 
 {% block content %}
-<div>RRHH</div>
+<div class="row m-2">     
+    <div class="col-lg-3 col-sm-3 p-1">
+        <input type="text" name="username" class="form-control" id="username" placeholder="username" maxlength="10" >
+    </div>
+    <div class="col-lg-3 col-sm-3 p-1">
+        <input type="text" name="password" class="form-control col-sm-3" id="password" placeholder="password" maxlength="10" >
+    </div>
+    <div class="col-lg-4 col-sm-6 p-1">
+        <input type="text" name="name" class="form-control col-sm-4" id="name" placeholder="nombre" maxlength="30">
+    </div>
+    <div class="col-lg-2 col-sm-3 p-1">
+        <input type="text" name="category" class="form-control col-sm-2" id="category" placeholder="categoria" maxlength="1">
+    </div>
+    <div class="col-lg-12 col-sm-3 p-1">
+        <button class="btn btn-primary" type="submit">Grabar Datos</button>
+    </div>  
+</row>
 {% endblock %}

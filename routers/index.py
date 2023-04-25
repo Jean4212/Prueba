@@ -19,7 +19,6 @@ async def Index(request: Request):
         return templates.TemplateResponse("index.html", {"request": request, "user": user})
 
 
-
 #@route_index.get("/asistencia", response_class=HTMLResponse)
 #def asistencia(request: Request):
 #    data = []

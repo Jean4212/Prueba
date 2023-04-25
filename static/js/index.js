@@ -1,6 +1,4 @@
-document.getElementById("btn-close").addEventListener("click", function(event) {
-    fetch('/logout')
-    .then(response => {
-        console.log(response)
-    }) 
+document.getElementById("btn-close").addEventListener("click", function(event) {   
+    fetch("/logout");  
+    window.location.href = "/login";       
 });

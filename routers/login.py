@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request, Response, Depends
 from fastapi.responses import RedirectResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.templating import Jinja2Templates
@@ -46,15 +46,18 @@ async def login_user(request: Request):
         return RedirectResponse(url="/")    
   
 @login.get("/logout")
-async def logout_user(request: Request):
+async def logout_user(request: Request, response: Response):
     access_token = request.cookies.get('access_token')   
-    response = RedirectResponse(url="/login")
+    #response = RedirectResponse(url="/login")
+    
+    #if access_token is None:      
+    #    return response     
 
-    if access_token is None:      
-        return response 
-        
-    token_verify = await decode_token(access_token)
+    #token_verify = await decode_token(access_token)
 
-    if token_verify:       
+    if access_token: #token_verify:     
         response.delete_cookie(key="access_token")
-        return response
+        #return response
+
+    if access_token is None:
+        return RedirectResponse(url="/login")

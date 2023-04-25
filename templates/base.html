@@ -27,17 +27,23 @@
                     <div class="navbar-nav">					
                         {% block navbar %} {% endblock navbar %}
                     </div>
-                    <button id="btn-close" type="button" class="mx-2 btn btn-outline-danger">SALIR</button>
+                    <button id="btn-close" type="button" class="btn btn-outline-danger">SALIR</button>
                 </div>               
             </nav>
         </div>
     </header>
         
-    {% block content %} {% endblock content %}    
-        
+    <main>
+        <div class="container-xxl bg-white">
+            {% block content %} {% endblock content %}
+        </div>
+    </main>
+
     <!--Pie de Pagina-->
-    <footer class="container-xxl bg-dark text-center text-white py-3">
-        © 2023 PlaniPRO
+    <footer>
+        <div class="container-xxl bg-dark text-center text-white py-3">
+            © 2023 PlaniPRO
+        </div>       
     </footer>
   
     <!--JS Close Sesion-->

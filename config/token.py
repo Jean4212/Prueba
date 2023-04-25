@@ -14,7 +14,10 @@ SECRET_KEY = "e8c45edd00c78200a1913b46eac799a375a97e76"
     
 # Funciones de autenticación
 async def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
+    try:
+        return pwd_context.verify(plain_password, hashed_password)
+    except:
+        pass
 
 async def get_user(username: str):   
     datos = session.query(Users).all()

@@ -2,6 +2,7 @@ from uvicorn import run
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 from routers.login import login
 from routers.index import index
@@ -10,8 +11,13 @@ from routers.supervision import supervision
 from routers.sstma import sstma
 from routers.rrhh import rrhh
 
+from routers.obtenerUser import ruta
+
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+origins = ["http://localhost", "http://localhost:8080", "http://localhost:3000"]
+app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 @app.exception_handler(exc_class_or_status_code=404)
 async def http_exception_handler(request, exc):
@@ -31,12 +37,13 @@ async def general_exception_handler(request, exc):
      
     return RedirectResponse("/")
 
-app.include_router(login)
-app.include_router(index)
-app.include_router(trabajadores)
-app.include_router(supervision)
-app.include_router(sstma)
-app.include_router(rrhh)
+#app.include_router(login)
+#app.include_router(index)
+#app.include_router(trabajadores)
+#app.include_router(supervision)
+#app.include_router(sstma)
+#app.include_router(rrhh)
+app.include_router(ruta)
 
 if __name__ == "__main__":
     run("app:app", host="0.0.0.0", reload=True)

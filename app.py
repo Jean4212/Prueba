@@ -1,4 +1,4 @@
-from uvicorn import run
+import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -46,4 +46,4 @@ async def general_exception_handler(request, exc):
 app.include_router(ruta)
 
 if __name__ == "__main__":
-    run("app:app", host="0.0.0.0", reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -122,3 +122,9 @@ async def fdsfdsfdsfds():
        
     
     return lista
+
+@ruta.get("/")
+async def gfdg():    
+          
+    
+    return {"message": "hola"}
